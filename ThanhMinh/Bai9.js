@@ -1,9 +1,4 @@
-<html>
-	<head>
-		<title>Write a JavaScript program to calculate days left until next Christmas</title>
-	</head>
-	<body>
-		<script type="text/javascript">
+/*Write a JavaScript program to calculate days left until next Christmas.*/
 				today=new Date();
 				var cmas=new Date(today.getFullYear(), 11, 25);
 				if(today.getMonth() == 11 && today.getDay()>25){
@@ -11,6 +6,4 @@
 				}
 				var one_day=1000*60*60*24;
 				console.log(Math.ceil((cmas.getTime()-today.getTime())/one_day)+" days left until Christmas!");
-		</script>
-	</body>
-</html>
+

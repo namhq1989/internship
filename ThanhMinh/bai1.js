@@ -1,14 +1,4 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Time</title>
-		
-	</head>
-	<body>
-		<div >
-			
-		</div>
-		<script>
+/* Write a JavaScript program to display the current day and time in the following format. */
 			var today=new Date();
 			var day=today.getDay();
 			var dayList=["SunDay","MonDay","Tuesday","Wednesday","Thursday","Firday","Saturday"];
@@ -37,7 +27,3 @@
 				}
 			}
 			console.log(`${hour}${perpand}: ${minute}: ${second}`);
-
-		</script>
-	</body>
-</html>
