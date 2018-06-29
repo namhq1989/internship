@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="inputFiled" type=text />
+<input type="button" onclick="check()" value="check" />
+<p id="random"></p>
+<div id="feedback"></div>
+<script>
+    function check() {
+        var x = Math.floor((Math.random() * 10) + 1);
+        var i = document.getElementById('inputFiled').value;
+        var feedback = document.getElementById('feedback');
+
+        if (i == x) {
+            feedback.innerHTML = 'Good Work';
+        } else {
+            feedback.innerHTML = 'Not matched';
+        }
+
+    }
+</script>
+</body>
+</html>
