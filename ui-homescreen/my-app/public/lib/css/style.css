@@ -1,0 +1,76 @@
+body{
+	font-family: monospace;
+	
+	
+}
+.wrapper{
+	margin-top: 25px; width: 30%; margin-bottom: 25px; background: dimgrey;
+	overflow-y:auto;
+	overflow-x:hidden;
+	height: 600px;
+}
+#day-month{
+	font-size: 26px;
+    color: white;
+    font-weight: bold;
+}
+#day-month-year{
+	font-size: 12px;
+    margin: 5px 0px;
+    color: white;
+	
+}
+.sk-link{
+	    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+.header-loitat{
+	background: url(../images/tintat.png) no-repeat;background-position: 6px;padding-left: 40px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.header-note{
+	background: url(../images/ghichunhanh.png) no-repeat;background-position: 6px;padding-left: 40px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.header-sk{
+	background: url(../images/sukienlich.png) no-repeat;background-position: 6px;padding-left: 40px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.header-football{
+	background: url(../images/football.png) no-repeat;background-position: 6px;padding-left: 40px;
+	font-weight: bold;
+    font-size: 14px;
+}
+.header-cophieu{
+	background: url(../images/cophieu.png) no-repeat;background-position: 6px;padding-left: 40px;font-weight: bold;
+    font-size: 14px;
+}
+.title-img{
+	font-size: 10px;
+    margin-top: 7px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.footer{
+	font-weight: bold;
+    font-size: 14px;
+}
+::-webkit-scrollbar{
+	width:0px;
+}
+.clear{
+	 clear: both;
+	padding-bottom: 50px;
+}
+.title-header{
+	float: left;
+    padding-top: 8px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
