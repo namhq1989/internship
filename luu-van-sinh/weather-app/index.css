@@ -1,0 +1,77 @@
+html, body, #root {
+  height: 100%;
+}
+p {
+  margin: 0;
+}
+h3,h4,p {
+  color: white;
+}
+body {
+  background-color:#eee;
+}
+.light-background {
+  background: url('images/nature-2880x1800-wallpaper.jpg');
+}
+.dark-background {
+  background: url('images/Beauty-Nature-Wallpaper-1080x1920.jpg');
+}
+.card-background,.card {
+  background-color: rgba(231, 231, 231, 0.1);
+}
+.container {
+  width: 450px;
+  margin: 20px auto;
+}
+h3 {
+  text-align: center;
+  line-height: 2.5;
+}
+.card {
+  width: 400px;
+  margin: 20px auto;
+  border-radius: 5px;
+  color: white;
+}
+.card-top {
+  background: radial-gradient(circle at top center,transparent 60px,rgba(231, 231, 231, 0.1) 0) top center;
+}
+.main-temperature{
+  font-size: 36px;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-yellow {
+  color: yellow;
+}
+.image-icon {
+  display: block;
+  margin: 5px auto;
+}
+.title-card {
+  margin-left: 30px;
+  margin-bottom: -15px;
+}
+.border-right {
+  border-right: 1px solid gray;
+}
+.text-center-vertical{
+  height: 30px;
+  line-height: 30px;
+}
+.main-icon {
+  width: 20%;
+  position: absolute;
+  left: 41%;
+  margin-top: -40px;
+}
+.img-container {
+  position: relative;
+}
+.sub-card-background {
+  background-color: rgba(231, 231, 231, 0);
+}
