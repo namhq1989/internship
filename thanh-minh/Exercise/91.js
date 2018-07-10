@@ -4,15 +4,19 @@
 */
 function arrayMaxConsecutiveSum(array, k) {
   let temp = 0;
+  let result = 0;
   for (let i = 0; i < k - 1; i += 1) {
     temp += array[i];
   }
-  for (let j = 0; j < array.length; i += 1) {
-
+  for (let j = k - 1; j < array.length; j += 1) {
+    temp += array[j];
+    if (temp > result) {
+      result = temp;
+    }
+    result -= array[j - k + 1];
   }
-
-  return temp;
+  return result;
 }
 
 // Demo
-console.log(arrayMaxConsecutiveSum([1, 2, 3, 7, 4], 5));
+console.log(arrayMaxConsecutiveSum([1, 2, 3, 14, 5], 2));
