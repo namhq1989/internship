@@ -1,0 +1,18 @@
+.header {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  font-size: 25px;
+}
+.name-user {
+  color: orange;
+  font-weight: bold;
+}
+.header-body {
+  text-align: center;
+}
+.header-div {
+  border: solid 1px;
+  background: aliceblue;
+  border-color: beige;
+}
