@@ -7,12 +7,6 @@ class PostModal extends React.Component{
       visible: false
     }
   }
-
-  handelOk = () => {
-    this.setState({
-      visible: false
-    })
-  }
   handleCancel =() => {
     this.setState ({
       visible: false
@@ -32,7 +26,7 @@ class PostModal extends React.Component{
           <Modal
             title={record.title}
             visible={visible}
-            onOk={this.handelOk}
+            onOk={this.handleCancel}
             onCancel={this.handleCancel}
           >
             <h3>Body</h3>

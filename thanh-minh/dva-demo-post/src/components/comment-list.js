@@ -16,25 +16,25 @@ class CommentList extends React.Component {
             <h4 className = "header-body">{post.body}</h4>
         </div>
         <Divider>Comments</Divider>
-          <List
-            itemLayout="horizontal"
-            bordered
-            dataSource = {listCom}
-            renderItem = {item => (
-              <List.Item>
-              <List.Item.Meta
-                avatar= {
-                  <Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  />
-                }
-                title = {<span className="name-user">{item.name}</span>}
-                description = {item.email}
-              />
-              <p>{item.body}</p>
-            </List.Item>
-            )}
-          />
+        <List
+          itemLayout="horizontal"
+          bordered
+          dataSource = {listCom}
+          renderItem = {item => (
+            <List.Item>
+            <List.Item.Meta
+              avatar= {
+                <Avatar
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                />
+              }
+              title = {<span className="name-user">{item.name}</span>}
+              description = {item.email}
+            />
+            <p>{item.body}</p>
+          </List.Item>
+          )}
+        />
       </div>
     );
   }
