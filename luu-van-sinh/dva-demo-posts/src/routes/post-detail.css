@@ -1,0 +1,14 @@
+.container {
+  width: 80%;
+  margin: 20px auto;
+}
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  color: blue;
+  display: inline;
+  margin-left: 20px;
+}
+.content {
+  margin-top: 40px;
+}
