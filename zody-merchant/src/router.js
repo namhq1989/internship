@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic';
 import Example from './components/Example'
-import Example2 from './components/Example2'
+import { LoginView } from './screens/login'
 
 const routes = [
   {
@@ -12,7 +12,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => Example2,
+    component: () => LoginView,
     id: 2
   },
 ]
