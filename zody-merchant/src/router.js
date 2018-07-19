@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic';
 import Example from './components/Example'
 import Example2 from './components/Example2'
+import SideBarView from './screens/side-bar/view'
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     path: '/login',
     component: () => Example2,
     id: 2
+  },
+  {
+    path: '/siderbar',
+    component: () => SideBarView,
+    id: 3
   },
 ]
 function RouterConfig({ history, app }) {
