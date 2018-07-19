@@ -2,6 +2,8 @@ import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic';
 import Example from './components/Example'
+import Example2 from './components/Example2'
+import SideBarView from './screens/side-bar/view'
 import { LoginView } from './screens/login'
 
 const routes = [
@@ -14,6 +16,11 @@ const routes = [
     path: '/login',
     component: () => LoginView,
     id: 2
+  },
+  {
+    path: '/siderbar',
+    component: () => SideBarView,
+    id: 3
   },
 ]
 function RouterConfig({ history, app }) {
