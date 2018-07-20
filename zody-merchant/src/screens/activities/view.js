@@ -1,8 +1,9 @@
 import React from 'react'
 import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
-import style from './style.css'
 import { StatisticalCard } from '../statistic'
+import { RcRangePicker, RcCustomerType } from '../../components'
+import style from './style.css'
 
 const { Sider, Header, Content } = Layout
 class SideBarView extends React.Component {
@@ -90,6 +91,10 @@ class SideBarView extends React.Component {
             />
           </Header>
           <Content className={style.content}>
+            <Row>
+              <RcRangePicker />
+              <RcCustomerType />
+            </Row>
             <Row gutter={16}>
               <div className={style.sectionTitle}>
                 <h4>
@@ -114,7 +119,6 @@ class SideBarView extends React.Component {
                   number={10000}
                 />
               </div>
-            </Row>
           </Content>
         </Layout>
       </Layout>
