@@ -1,0 +1,46 @@
+.infoTitle {
+  padding: 0 5px;
+  margin-bottom: 15px;
+}
+.infoTitle p {
+  text-transform: uppercase;
+  font-family: iCielPanton_SemiBold;
+  margin-bottom: -4px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.infoTitle span {
+  font-family: iCielPanton-LightItalic;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.cardSpan{
+  margin-left: 30px;
+  font-size: 30px;
+  display: block;
+  font-family: iCielPanton-Light;
+  color: darkorange;
+}
+.cardIcon {
+  display: block;
+  float: left;
+  margin-top: 10px;
+  width: 24px;
+  height: 24px;
+}
+.colCard{
+  padding: 12px;
+}
+.sectionTitle{
+  margin-top: 20px;
+  padding: 8px 0;
+}
+.sectionTitle h4 {
+  font-family: iCielPanton_SemiBold;
+  font-size: 15px;
+  text-transform: uppercase;
+  max-width: 500px;
+  display: inline-block;
+  font-weight: bold;
+}
