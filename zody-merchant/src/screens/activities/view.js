@@ -119,6 +119,7 @@ class SideBarView extends React.Component {
                   number={10000}
                 />
               </div>
+            </Row>
           </Content>
         </Layout>
       </Layout>

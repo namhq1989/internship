@@ -24,3 +24,11 @@
 .container {
   margin-left: 30px
 }
+.sectionTitle{
+  font-size: 15px;
+  margin-top: 14px;
+  text-transform: uppercase;
+}
+.sectionTitle h4{
+  margin-left: 9px;
+}
