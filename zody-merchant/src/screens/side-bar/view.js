@@ -1,6 +1,7 @@
 import React from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
+import { RcRangePicker, RcCustomerType } from '../../components'
 import style from './style.css'
 
 const { Sider, Header, Content } = Layout
@@ -89,7 +90,10 @@ class SideBarView extends React.Component {
             />
           </Header>
           <Content className={style.content}>
-            Content
+            <Row>
+              <RcRangePicker />
+              <RcCustomerType />
+            </Row>
           </Content>
         </Layout>
       </Layout>

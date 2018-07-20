@@ -1,0 +1,13 @@
+.rccomponent {
+  padding: 0 8px;
+}
+.title {
+  margin-top: 20px;
+  padding: 8px 0;
+}
+.title h4 {
+  text-transform: uppercase;
+}
+.container {
+  width: 100%;
+}

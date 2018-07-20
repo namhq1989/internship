@@ -12,8 +12,7 @@
 .content{
   margin: 24px 16px;
   padding: 24;
-   background: #fff;
-   min-height: 500px;
+  min-height: 600px;
 }
 .trigger{
   padding: 0 16px;
@@ -21,4 +20,7 @@
   display: inline-block;
   margin-top: 22px;
   cursor: pointer;
+}
+.container {
+  margin-left: 30px
 }
