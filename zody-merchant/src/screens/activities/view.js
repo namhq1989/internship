@@ -4,6 +4,7 @@ import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
 import style from './style.css'
+import TableView from './table'
 
 const { Sider, Header, Content } = Layout
 class SideBarView extends React.Component {
@@ -120,6 +121,8 @@ class SideBarView extends React.Component {
                 />
               </div>
             </Row>
+            <TableView />
+            <Row />
           </Content>
         </Layout>
       </Layout>
