@@ -1,0 +1,11 @@
+.iconCoin {
+  width: 17px;
+  height: 17px;
+}
+.iconBill {
+  width: 17px;
+  height: 19px;
+}
+.iconBill, .iconCoin {
+  margin-right: 6px;
+}
