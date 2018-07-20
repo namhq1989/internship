@@ -1,7 +1,8 @@
 import React from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
 import style from './style.css'
+import { StatisticalCard } from '../statistic'
 
 const { Sider, Header, Content } = Layout
 class SideBarView extends React.Component {
@@ -89,7 +90,31 @@ class SideBarView extends React.Component {
             />
           </Header>
           <Content className={style.content}>
-            Content
+            <Row gutter={16}>
+              <div className={style.sectionTitle}>
+                <h4>
+                  Thống kê
+                </h4>
+                <StatisticalCard
+                  title="Lượt giao dịch"
+                  desc="Theo mốc thời gian"
+                  icon={ImageConst.imageDolar}
+                  number={10000}
+                />
+                <StatisticalCard
+                  title="Doanh thu"
+                  desc="Theo mốc thời gian"
+                  icon={ImageConst.imageGiaoDich}
+                  number={10000}
+                />
+                <StatisticalCard
+                  title="Zcoin tặng thành công"
+                  desc="Theo mốc thời gian"
+                  icon={ImageConst.imageZcoin}
+                  number={10000}
+                />
+              </div>
+            </Row>
           </Content>
         </Layout>
       </Layout>
