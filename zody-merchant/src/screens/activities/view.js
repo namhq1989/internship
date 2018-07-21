@@ -104,7 +104,7 @@ class SideBarView extends React.Component {
             />
           </Header>
           <Content className={style.content}>
-            <Row>
+            <Row gutter={16}>
               <RcRangePicker />
               <RcCustomerType />
             </Row>

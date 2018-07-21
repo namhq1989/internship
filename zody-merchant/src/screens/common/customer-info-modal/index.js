@@ -1,27 +1,25 @@
 import React from 'react'
-import { Popconfirm, Icon, Modal, Row, Col, Table } from 'antd'
+import { Popconfirm, Icon, Modal, Row, Col, Table, Button, Input } from 'antd'
 import { ImageConst, MessageConst } from '../../../configs'
 import style from './style.css'
 
 const data = [
   {
     activity: 'Tich luy hoa don',
-    key: '1',
+    id: 1,
     bill: {
-      id: '1',
       price: '50000'
     },
     coin: '10',
-    createdAt: '2'
+    createdAt: '10/07/2018, 15:24'
   }, {
     activity: 'Tich luy hoa don',
-    key: '2',
+    id: 2,
     bill: {
-      id: '2',
-      price: '50000'
+      price: '5000'
     },
     coin: '10',
-    createdAt: '1'
+    createdAt: '10/07/2018, 15:24'
   }
 ]
 const columns = [
@@ -49,7 +47,7 @@ const columns = [
       return (value) ? <span>{value.id}</span> : ''
     }
   }, {
-    title: 'Số tiền',
+    title: 'SỐ TIỀN',
     dataIndex: 'bill',
     render: (value) => {
       if (!value) {
@@ -94,13 +92,42 @@ const columns = [
   }
 ]
 class CustomerInfoModal extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      data: [],
+      isEnd: true,
+      sort: '-createdAt',
+      page: 0,
+      profile: null,
+      isEditNote: false,
+      noteContent: ''
+    }
+  }
+
   toggle = () => {
     const { onClose } = this.props
     onClose()
   }
 
+  editNote = () => {
+    this.setState({
+      isEditNote: true,
+    }, () => {
+      document.getElementById('note-content').focus()
+    })
+  }
+
+  cancelNoteEdit = () => {
+    this.setState({
+      isEditNote: false
+    })
+  }
+
   render() {
     const { visible } = this.props
+    const { isEditNote, noteContent } = this.state
     return (
       <Modal
         title="THÔNG TIN THÀNH VIÊN"
@@ -112,12 +139,79 @@ class CustomerInfoModal extends React.Component {
         footer={null}
       >
         <Row>
+          <Col xs={24} sm={24} md={24} lg={6} xl={6}>
+            <div>
+              <Row className={style.profileInfo}>
+                <h5>
+                  User Name
+                </h5>
+                <Row className={style.basicInfo}>
+                  <Col className={style.item} span={12}>
+                    <Icon type="environment-o" />
+                    <span>City</span>
+                  </Col>
+                  <Col className={style.item} span={12}>
+                    <Icon type="user" />
+                    <span>Nam</span>
+                  </Col>
+                </Row>
+              </Row>
+              {
+                !isEditNote
+                  ?
+                    <Row className={style.customerNote} onClick={this.editNote}>
+                      <Icon type="edit" /> <span>Thêm ghi chú khách hàng</span>
+                    </Row>
+                  :
+                    <div style={{ paddingBottom: 30 }}>
+                      <Row className="customer-note">
+                        <Input.TextArea
+                          id="note-content"
+                          value={noteContent}
+                          onChange={e => this.setState({ noteContent: e.target.value })}
+                          onPressEnter={this.saveNoteEdit}
+                        />
+                      </Row>
+                      <Button type="primary" size="small" className={style.btnEdit} onClick={this.saveNoteEdit}>Lưu</Button>
+                      <Button type="default" size="small" className={style.btnEdit} onClick={this.cancelNoteEdit}>Huỷ</Button>
+                    </div>
+              }
+              <Row>
+                <table className={style.profiletable}>
+                  <tbody>
+                    <tr>
+                      <td>SDT</td>
+                      <td className={style.tabledata}>Phone Number</td>
+                    </tr>
+                    <tr>
+                      <td>Facebook</td>
+                      <td className={style.tabledata}>
+                        <a href="/#" target="blank">Xem</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ngày sinh</td>
+                      <td className={style.tabledata}>01/02/1993</td>
+                    </tr>
+                    <tr>
+                      <td>Chi tiêu</td>
+                      <td className={style.tabledata}>150000</td>
+                    </tr>
+                    <tr>
+                      <td>Lượt giao dịch</td>
+                      <td className={style.tabledata}>2</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </Row>
+            </div>
+          </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={18}>
             <Table
               dataSource={data}
               columns={columns}
               pagination={false}
-              rowKey={record => record.key}
+              rowKey={record => record.id}
             />
           </Col>
         </Row>
