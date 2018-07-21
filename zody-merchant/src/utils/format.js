@@ -15,7 +15,7 @@ const numbers = (value) => {
     return '0'
   }
   value = parseFloat(value)
-  return Number(value.toFixed(1).toLocaleString())
+  return Number(value.toFixed(1)).toLocaleString()
 }
 
 console.log(numbers(120000))

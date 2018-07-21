@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
 import { ImageConst } from '../../../configs'
+import { format } from '../../../utils'
 import style from './style.css'
 
 const data = [{
@@ -137,7 +138,7 @@ class TableView extends React.Component {
         return (
           <div>
             <img src={ImageConst.imageDolar} alt="" className={style.iconRevenueTable} />
-            <span>{value}</span>
+            <span>{format.numbers(value)}</span>
           </div>
         )
       }
@@ -150,7 +151,7 @@ class TableView extends React.Component {
         return (
           <div>
             <img src={ImageConst.imageZcoin} alt="" className={style.iconRevenueTable} />
-            <span>{value}</span>
+            <span>{format.numbers(value)}</span>
           </div>
         )
       }

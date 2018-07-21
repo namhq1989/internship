@@ -1,6 +1,7 @@
 import React from 'react'
 import { Popconfirm, Icon, Modal, Row, Col, Table, Button, Input } from 'antd'
 import { ImageConst, MessageConst } from '../../../configs'
+import { format } from '../../../utils'
 import style from './style.css'
 
 const data = [
@@ -56,7 +57,7 @@ const columns = [
       return (
         <div>
           <img src={ImageConst.imageDolar} alt="" className={style.iconCoin} />
-          <span>{value.price}</span>
+          <span>{format.numbers(value.price)}</span>
         </div>
       )
     }
@@ -67,7 +68,7 @@ const columns = [
       return (
         <div>
           <img src={ImageConst.imageZcoin} alt="" className={style.iconCoin} />
-          <span>{value}</span>
+          <span>{format.numbers(value)}</span>
         </div>
       )
     }
@@ -195,7 +196,7 @@ class CustomerInfoModal extends React.Component {
                     </tr>
                     <tr>
                       <td>Chi tiêu</td>
-                      <td className={style.tabledata}>150000</td>
+                      <td className={style.tabledata}>{format.numbers(120000)}</td>
                     </tr>
                     <tr>
                       <td>Lượt giao dịch</td>
