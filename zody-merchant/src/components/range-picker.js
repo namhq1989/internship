@@ -25,7 +25,7 @@ class RcRangePicker extends React.Component {
   render() {
     const { start, end } = this.state
     return (
-      <Col xs={24} sm={24} md={12} lg={8} xl={8} className={styles.rccomponent}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={8} className={styles.rccomponent}>
         <div className={styles.title}>
           <h4>Thời gian</h4>
         </div>

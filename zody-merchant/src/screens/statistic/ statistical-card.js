@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Col } from 'antd'
 
 import style from './style.css'
+import { format } from '../../utils'
 
 class StatisticalCard extends React.Component {
   render() {
@@ -17,12 +18,12 @@ class StatisticalCard extends React.Component {
       </div>
     )
     return (
-      <Col xs={24} sm={24} md={12} lg={8} xl={8} className={style.colCard}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={8} className={style.colCard}>
         <Card>
           {cardTitle}
           <img src={icon} alt="" className={style.cardIcon} />
           <span className={style.cardSpan}>
-            {number}
+            {format.numbers(number)}
           </span>
         </Card>
       </Col>

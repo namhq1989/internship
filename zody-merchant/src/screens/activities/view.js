@@ -5,6 +5,7 @@ import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
 import { CustomerInfoModal } from '../common'
 import style from './style.css'
+import TableView from './table'
 
 const { Sider, Header, Content } = Layout
 class SideBarView extends React.Component {
@@ -132,6 +133,9 @@ class SideBarView extends React.Component {
                   number={10000}
                 />
               </div>
+            </Row>
+            <Row>
+              <TableView />
             </Row>
             <Button onClick={this.showCustomerInfoModal}>Show Modal</Button>
             <CustomerInfoModal
