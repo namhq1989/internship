@@ -8,7 +8,7 @@ class RcCustomerType extends React.Component {
   render() {
     const { initValue, onChange } = this.props
     return (
-      <Col xs={24} sm={24} md={12} lg={8} xl={8} className={styles.rccomponent}>
+      <Col xs={24} sm={24} md={12} lg={12} xl={8} className={styles.rccomponent}>
         <div className={styles.title}>
           <h4>Thành viên</h4>
         </div>
