@@ -1,8 +1,9 @@
 import React from 'react'
-import { Layout, Menu, Icon, Row } from 'antd'
+import { Layout, Menu, Icon, Row, Button } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
+import { CustomerInfoModal } from '../common'
 import style from './style.css'
 import TableView from './table'
 
@@ -12,7 +13,8 @@ class SideBarView extends React.Component {
     super(props)
     this.state = {
       collapsed: false,
-      collapsedMoblie: false
+      collapsedMoblie: false,
+      modalCustomerInfoVisible: false
     }
   }
 
@@ -50,9 +52,20 @@ class SideBarView extends React.Component {
     })
   }
 
+  showCustomerInfoModal = () => {
+    this.setState({
+      modalCustomerInfoVisible: true
+    })
+  }
+
+  closeCustomerInfoModal = () => {
+    this.setState({
+      modalCustomerInfoVisible: false
+    })
+  }
 
   render() {
-    const { collapsed, collapsedMoblie } = this.state
+    const { collapsed, collapsedMoblie, modalCustomerInfoVisible } = this.state
     return (
       <Layout>
         <Sider
@@ -92,7 +105,7 @@ class SideBarView extends React.Component {
             />
           </Header>
           <Content className={style.content}>
-            <Row>
+            <Row gutter={16}>
               <RcRangePicker />
               <RcCustomerType />
             </Row>
@@ -121,8 +134,14 @@ class SideBarView extends React.Component {
                 />
               </div>
             </Row>
-            <TableView />
-            <Row />
+            <Row>
+              <TableView />
+            </Row>
+            <Button onClick={this.showCustomerInfoModal}>Show Modal</Button>
+            <CustomerInfoModal
+              visible={modalCustomerInfoVisible}
+              onClose={this.closeCustomerInfoModal}
+            />
           </Content>
         </Layout>
       </Layout>
