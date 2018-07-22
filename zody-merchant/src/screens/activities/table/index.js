@@ -102,6 +102,7 @@ const data = [{
 }]
 class TableView extends React.Component {
   render() {
+    const { showModal } = this.props
     const columns = [{
       title: 'STT',
       dataIndex: 'key',
@@ -111,7 +112,17 @@ class TableView extends React.Component {
       title: 'Thành viên',
       dataIndex: 'name',
       align: 'center',
-      key: 'name'
+      key: 'name',
+      render: (value) => {
+        return (
+          <span
+            className={style.custumerModal}
+            onClick={() => showModal()}
+          >
+            {value}
+          </span>
+        )
+      }
     }, {
       title: '#MÃ HOÁ ĐƠN',
       dataIndex: 'mahoadon',

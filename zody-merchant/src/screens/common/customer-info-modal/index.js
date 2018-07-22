@@ -138,7 +138,7 @@ class CustomerInfoModal extends React.Component {
         onCancel={this.toggle}
         footer={null}
       >
-        <Row>
+        <Row gutter={16}>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
             <div>
               <Row className={style.profileInfo}>

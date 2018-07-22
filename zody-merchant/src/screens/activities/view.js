@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Icon, Row, Button } from 'antd'
+import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
@@ -114,30 +114,34 @@ class SideBarView extends React.Component {
                 <h4>
                   Thống kê
                 </h4>
-                <StatisticalCard
-                  title="Lượt giao dịch"
-                  desc="Theo mốc thời gian"
-                  icon={ImageConst.imageDolar}
-                  number={10000}
-                />
-                <StatisticalCard
-                  title="Doanh thu"
-                  desc="Theo mốc thời gian"
-                  icon={ImageConst.imageGiaoDich}
-                  number={10000}
-                />
-                <StatisticalCard
-                  title="Zcoin tặng thành công"
-                  desc="Theo mốc thời gian"
-                  icon={ImageConst.imageZcoin}
-                  number={10000}
-                />
               </div>
+              <StatisticalCard
+                title="Lượt giao dịch"
+                desc="Theo mốc thời gian"
+                icon={ImageConst.imageDolar}
+                number={10000}
+              />
+              <StatisticalCard
+                title="Doanh thu"
+                desc="Theo mốc thời gian"
+                icon={ImageConst.imageGiaoDich}
+                number={10000}
+              />
+              <StatisticalCard
+                title="Zcoin tặng thành công"
+                desc="Theo mốc thời gian"
+                icon={ImageConst.imageZcoin}
+                number={10000}
+              />
             </Row>
             <Row>
-              <TableView />
+              <div className={style.sectionTitle}>
+                <h4>
+                Lịch sử
+                </h4>
+              </div>
+              <TableView showModal={this.showCustomerInfoModal} />
             </Row>
-            <Button onClick={this.showCustomerInfoModal}>Show Modal</Button>
             <CustomerInfoModal
               visible={modalCustomerInfoVisible}
               onClose={this.closeCustomerInfoModal}
