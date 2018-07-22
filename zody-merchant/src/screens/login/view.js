@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Row, Col } from 'antd'
-import { ImageConst, Message, AppConst } from '../../configs'
+import { ImageConst, MessageConst, AppConst } from '../../configs'
 import { Notification } from '../../components'
 import styles from './style.css'
 
@@ -24,9 +24,9 @@ class LoginView extends React.Component {
   submitLogin = () => {
     const { email, password } = this.state
     if (!email || !password) {
-      Notification(Message.Login.RequireEmailAndPassword, AppConst.notification.error)
+      Notification(MessageConst.Login.RequireEmailAndPassword, AppConst.notification.error)
     } else if (!AppConst.regex.email.test(email)) {
-      Notification(Message.Login.EmailIsNotValid, AppConst.notification.error)
+      Notification(MessageConst.Login.EmailIsNotValid, AppConst.notification.error)
     } else {
       // send data to server
       console.log('Checking login')
