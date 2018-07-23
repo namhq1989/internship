@@ -1,5 +1,7 @@
 import React from 'react'
 import { Layout, Menu, Icon, Row } from 'antd'
+import { connect } from 'dva'
+import lodash from 'lodash'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
@@ -21,6 +23,15 @@ class SideBarView extends React.Component {
   componentDidMount() {
     this.handleResize()
     window.addEventListener('resize', this.handleResize)
+    this.onFilterChange()
+  }
+
+  // Change filter
+  onFilterChange = (newFilter = {}) => {
+    const filter = this.mergeState(newFilter)
+
+    const statisticQuery = lodash.pick(filter, ['start', 'end', 'status'])
+    this.loadStatistic(statisticQuery)
   }
 
   getScreenSize = () => {
@@ -33,6 +44,20 @@ class SideBarView extends React.Component {
     if ((screenPx >= AppConst.screens['lg-min'])
       && (screenPx <= AppConst.screens['lg-max'])) return 'lg'
     if (screenPx >= AppConst.screens['xl-min']) return 'xl'
+  }
+
+  mergeState = (newFilter = {}) => {
+    let { activities: { filter } } = this.props
+    filter = lodash.merge(filter, newFilter)
+    return filter
+  }
+
+  loadStatistic = (filter) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'activities/fetch',
+      payload: { ...filter }
+    })
   }
 
   isMoblieSide = () => {
@@ -64,8 +89,25 @@ class SideBarView extends React.Component {
     })
   }
 
+  // Rangepicker selected
+  dateSelected = (start, end) => {
+    this.onFilterChange({ start, end })
+  }
+
+  // CustomerType selected
+  customerTypeSelected = (status) => {
+    this.onFilterChange({ status })
+  }
+
   render() {
     const { collapsed, collapsedMoblie, modalCustomerInfoVisible } = this.state
+    const { activities: { statistic, filter } } = this.props
+    let coinDesc = 'Cho thành viên đã sử dụng app'
+    if (filter.status === 'all') {
+      coinDesc = 'Cho tất cả thành viên'
+    } else if (filter.status === 'unregistered') {
+      coinDesc = 'Cho thành viên chưa đăng ký app'
+    }
     return (
       <Layout>
         <Sider
@@ -106,8 +148,15 @@ class SideBarView extends React.Component {
           </Header>
           <Content className={style.content}>
             <Row gutter={16}>
-              <RcRangePicker />
-              <RcCustomerType />
+              <RcRangePicker
+                start={filter.start}
+                end={filter.end}
+                onOk={this.dateSelected}
+              />
+              <RcCustomerType
+                initValue={filter.status}
+                onChange={this.customerTypeSelected}
+              />
             </Row>
             <Row gutter={16}>
               <div className={style.sectionTitle}>
@@ -118,20 +167,20 @@ class SideBarView extends React.Component {
               <StatisticalCard
                 title="Lượt giao dịch"
                 desc="Theo mốc thời gian"
-                icon={ImageConst.imageDolar}
-                number={10000}
+                icon={ImageConst.imageGiaoDich}
+                number={statistic.totalBill}
               />
               <StatisticalCard
                 title="Doanh thu"
                 desc="Theo mốc thời gian"
-                icon={ImageConst.imageGiaoDich}
-                number={10000}
+                icon={ImageConst.imageDolar}
+                number={statistic.revenue}
               />
               <StatisticalCard
                 title="Zcoin tặng thành công"
-                desc="Theo mốc thời gian"
+                desc={coinDesc}
                 icon={ImageConst.imageZcoin}
-                number={10000}
+                number={statistic.releasedCoin}
               />
             </Row>
             <Row>
@@ -152,4 +201,4 @@ class SideBarView extends React.Component {
     )
   }
 }
-export default SideBarView
+export default connect(({ activities }) => ({ activities }))(SideBarView)
