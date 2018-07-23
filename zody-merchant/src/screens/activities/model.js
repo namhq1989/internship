@@ -1,5 +1,5 @@
 import { AppConst, MessageConst } from '../../configs'
-import { recentActivities } from './service'
+import { fetch, recentActivities } from './service'
 import { Notification } from '../../components'
 
 export default {
@@ -16,13 +16,12 @@ export default {
       end: AppConst.components.rangePicker.end,
       status: AppConst.components.customerTypes.default,
       sort: '-createdAt',
+      total: 0,
     }
   },
-
   reducers: {
-    update(state, action) {
-      const cpState = state.filter
-      let filter = cpState
+    updateState(state, action) {
+      let { filter } = state
       if (action.payload.filter) {
         filter = Object.assign(filter, action.payload.filter)
       }
@@ -33,12 +32,9 @@ export default {
       }
     }
   },
-
   effects: {
     *recentActivities({ payload }, { call, put }) {
-      console.log('payload,', payload)
       const data = yield call(recentActivities, payload)
-      console.log('data recent activities', data)
       if (!data || data.err) {
         return Notification(MessageConst.ServerError, AppConst.notification.error)
       }
@@ -48,12 +44,32 @@ export default {
         return Notification(response.message, AppConst.notification.error)
       }
       yield put({
-        type: 'update',
+        type: 'updateState',
         payload: {
           data: response.data.activities,
           filter: {
             ...payload
           }
+        }
+      })
+    },
+    *fetch({ payload }, { call, put }) {
+      const data = yield call(fetch, payload)
+      if (!data || data.err) {
+        return Notification(MessageConst.ServerError, AppConst.notification.error)
+      }
+
+      const response = data.data
+      if (!response || !response.success) {
+        return Notification(response.message, AppConst.notification.error)
+      }
+
+      yield put({
+        type: 'updateState',
+        payload: {
+          statistic: response.data,
+          total: response.data.totalBill,
+          ...payload
         }
       })
     }

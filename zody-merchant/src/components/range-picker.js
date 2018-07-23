@@ -15,6 +15,12 @@ class RcRangePicker extends React.Component {
     }
   }
 
+  onOk = () => {
+    const { onOk } = this.props
+    const { start, end } = this.state
+    onOk(start.toISOString(), end.toISOString())
+  }
+
   handleChange = (dates) => {
     this.setState({
       start: dates[0],
@@ -36,6 +42,7 @@ class RcRangePicker extends React.Component {
           showTime
           ranges={{ 'Hôm nay': [moment(), moment()], 'Tháng này': [moment().startOf('month'), moment().endOf('month')] }}
           onChange={this.handleChange}
+          onOk={this.onOk}
         />
       </Col>
     )

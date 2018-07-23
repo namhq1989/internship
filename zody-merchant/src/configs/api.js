@@ -14,10 +14,17 @@ export default {
       method: METHODS.post
     }
   },
-  recentActivities: () => {
+  activities: {
+    pageActivity: () => {
+      return {
+        url: '/v2.7/merchants/pageActivity',
+        method: METHODS.get
+      }
+    },
+    recentActivities: () => {
     return {
       url: '/v2.7/merchants/activities',
       method: METHODS.get
     }
-  }
+  },
 }
