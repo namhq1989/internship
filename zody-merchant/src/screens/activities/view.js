@@ -60,7 +60,6 @@ class ActivitiesView extends React.Component {
   // load  data table activities
   loadRecentActivities = (filter) => {
     const { dispatch } = this.props
-    console.log('dta filter ', filter)
     dispatch({
       type: 'activities/recentActivities',
       payload: { ...filter }
