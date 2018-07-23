@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'dva'
 import lodash from 'lodash'
 import { Layout, Menu, Icon, Row } from 'antd'
-import { connect } from 'dva'
-import lodash from 'lodash'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
@@ -12,7 +10,7 @@ import style from './style.css'
 import TableView from './table'
 
 const { Sider, Header, Content } = Layout
-class SideBarView extends React.Component {
+class ActivitiesView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -36,7 +34,7 @@ class SideBarView extends React.Component {
 
     const statisticQuery = lodash.pick(filter, ['start', 'end', 'status'])
     this.loadStatistic(statisticQuery)
-    
+
     const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status'])
     this.loadRecentActivities(recentActivitiesQuery)
   }
@@ -65,9 +63,10 @@ class SideBarView extends React.Component {
     console.log('dta filter ', filter)
     dispatch({
       type: 'activities/recentActivities',
-       payload: { ...filter }
+      payload: { ...filter }
     })
   }
+
   loadStatistic = (filter) => {
     const { dispatch } = this.props
     dispatch({
@@ -119,7 +118,8 @@ class SideBarView extends React.Component {
       phone,
       modalCustomerInfoVisible: true
     })
-  
+  }
+
   // Rangepicker selected
   dateSelected = (start, end) => {
     this.onFilterChange({ start, end })
@@ -237,4 +237,4 @@ class SideBarView extends React.Component {
     )
   }
 }
-export default connect(({ activities }) => ({ activities }))(SideBarView)
+export default connect(({ activities }) => ({ activities }))(ActivitiesView)

@@ -22,9 +22,10 @@ export default {
       }
     },
     recentActivities: () => {
-    return {
-      url: '/v2.7/merchants/activities',
-      method: METHODS.get
-    }
-  },
+      return {
+        url: '/v2.7/merchants/activities',
+        method: METHODS.get
+      }
+    },
+  }
 }

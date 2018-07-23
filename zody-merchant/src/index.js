@@ -1,5 +1,5 @@
 import dva from 'dva'
-import ActivityModel from './screens/activities/model'
+// import ActivityModel from './screens/activities/model'
 
 // 1. Initialize
 const app = dva()
@@ -8,7 +8,7 @@ const app = dva()
 // app.use({})
 
 // 3. Model
-app.model(ActivityModel)
+// app.model(ActivityModel)
 
 // 4. Router
 app.router(require('./router').default)

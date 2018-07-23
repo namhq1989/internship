@@ -1,7 +1,7 @@
-import SideBarView from './view'
+import ActivitiesView from './view'
 import ActivitiesModel from './model'
 
 export {
-  SideBarView,
+  ActivitiesView,
   ActivitiesModel
 }
