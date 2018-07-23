@@ -164,6 +164,7 @@ class TableView extends React.Component {
       title: 'THỜI GIAN NHẬN ĐIỂM',
       dataIndex: 'timeNhanDIem',
       align: 'center',
+      sorter: true,
       key: 'timeNhanDIem'
     }]
     return (

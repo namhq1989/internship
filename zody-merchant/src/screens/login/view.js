@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'dva'
 import { Form, Icon, Input, Button, Row, Col } from 'antd'
 import { ImageConst, MessageConst, AppConst } from '../../configs'
 import { Notification } from '../../components'
@@ -23,13 +24,19 @@ class LoginView extends React.Component {
 
   submitLogin = () => {
     const { email, password } = this.state
+    const { dispatch } = this.props
     if (!email || !password) {
       Notification(MessageConst.Login.RequireEmailAndPassword, AppConst.notification.error)
     } else if (!AppConst.regex.email.test(email)) {
       Notification(MessageConst.Login.EmailIsNotValid, AppConst.notification.error)
     } else {
       // send data to server
-      console.log('Checking login')
+      dispatch(
+        {
+          type: 'login/login',
+          payload: { email, password }
+        }
+      )
     }
   }
 
@@ -80,4 +87,4 @@ class LoginView extends React.Component {
     )
   }
 }
-export default LoginView
+export default connect()(LoginView)

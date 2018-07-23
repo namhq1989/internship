@@ -18,7 +18,6 @@ const numbers = (value) => {
   return Number(value.toFixed(1)).toLocaleString()
 }
 
-console.log(numbers(120000))
 export default {
   date,
   numbers
