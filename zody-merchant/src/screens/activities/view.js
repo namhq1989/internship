@@ -130,7 +130,7 @@ class ActivitiesView extends React.Component {
   }
 
   render() {
-    const { collapsed, collapsedMoblie, modalCustomerInfoVisible } = this.state
+    const { collapsed, collapsedMoblie, modalCustomerInfoVisible, customerId, phone } = this.state
     const { activities: { statistic, filter, data } } = this.props
     let coinDesc = 'Cho thành viên đã sử dụng app'
     if (filter.status === 'all') {
@@ -229,6 +229,8 @@ class ActivitiesView extends React.Component {
             <CustomerInfoModal
               visible={modalCustomerInfoVisible}
               onClose={this.closeCustomerInfoModal}
+              customerId={customerId}
+              phone={phone}
             />
           </Content>
         </Layout>

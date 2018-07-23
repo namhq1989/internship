@@ -7,7 +7,7 @@ import style from './style.css'
 class TableView extends React.Component {
   render() {
     const { data } = this.props
-    const { showModal } = this.props
+    const { viewCustomerId, viewPhone } = this.props
     const columns = [{
       title: 'STT',
       dataIndex: '',
@@ -26,7 +26,7 @@ class TableView extends React.Component {
           return (
             <span
               className={style.custumerModal}
-              onClick={() => showModal()}
+              onClick={() => viewCustomerId(value._id)}
             >
               {value.name}
             </span>
@@ -34,7 +34,7 @@ class TableView extends React.Component {
         }
         return (
           <span
-            onClick={() => showModal()}
+            onClick={() => viewPhone(row.phone)}
           >
             {row.phone}
           </span>

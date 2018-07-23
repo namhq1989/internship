@@ -127,7 +127,7 @@ class CustomerInfoModal extends React.Component {
   }
 
   render() {
-    const { visible } = this.props
+    const { visible, phone, customerId } = this.props
     const { isEditNote, noteContent } = this.state
     return (
       <Modal
@@ -144,7 +144,7 @@ class CustomerInfoModal extends React.Component {
             <div>
               <Row className={style.profileInfo}>
                 <h5>
-                  User Name
+                  User Name {phone} va {customerId}
                 </h5>
                 <Row className={style.basicInfo}>
                   <Col className={style.item} span={12}>
