@@ -1,4 +1,5 @@
 export default {
+  ServerError: 'Đã có lỗi xảy ra, vui lòng thử lại!',
   Login: {
     RequireEmailAndPassword: 'Vui lòng điền đầy đủ thông tin đăng nhập',
     EmailIsNotValid: 'Email không đúng định dạng',

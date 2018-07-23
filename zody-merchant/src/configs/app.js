@@ -1,3 +1,4 @@
+import moment from 'moment'
 
 const LocalStoragePrefix = (process.env.NODE_ENV === 'production') ? 'zody-' : 'zody-dev-'
 export default {
@@ -54,6 +55,10 @@ export default {
         id: 'unregistered',
         text: 'Chưa đăng ký'
       }]
+    },
+    rangePicker: {
+      start: moment().subtract(30, 'd').startOf('d').toISOString(),
+      end: moment().endOf('d').toISOString()
     },
   },
 }
