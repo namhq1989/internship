@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'dva'
+import lodash from 'lodash'
 import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
@@ -14,13 +16,22 @@ class SideBarView extends React.Component {
     this.state = {
       collapsed: false,
       collapsedMoblie: false,
-      modalCustomerInfoVisible: false
+      modalCustomerInfoVisible: false,
+      customerId: '',
+      phone: ''
     }
   }
 
   componentDidMount() {
     this.handleResize()
     window.addEventListener('resize', this.handleResize)
+    this.onFilterChange()
+  }
+
+  onFilterChange = (newFilter = {}) => {
+    const filter = this.mergeState(newFilter)
+    const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status'])
+    this.loadRecentActivities(recentActivitiesQuery)
   }
 
   getScreenSize = () => {
@@ -33,6 +44,22 @@ class SideBarView extends React.Component {
     if ((screenPx >= AppConst.screens['lg-min'])
       && (screenPx <= AppConst.screens['lg-max'])) return 'lg'
     if (screenPx >= AppConst.screens['xl-min']) return 'xl'
+  }
+
+  mergeState = (newFilter = {}) => {
+    let { activities: { filter } } = this.props
+    filter = lodash.merge(filter, newFilter)
+    return filter
+  }
+
+  // load  data table activities
+  loadRecentActivities = (filter) => {
+    const { dispatch } = this.props
+    console.log('dta filter ', filter)
+    dispatch({
+      type: 'activities/recentActivities',
+      payload: { ...filter }
+    })
   }
 
   isMoblieSide = () => {
@@ -64,8 +91,25 @@ class SideBarView extends React.Component {
     })
   }
 
+  viewCustomerId =(customerId) => {
+    this.setState({
+      customerId,
+      phone: '',
+      modalCustomerInfoVisible: true
+    })
+  }
+
+  viewPhone = (phone) => {
+    this.setState({
+      customerId: '',
+      phone,
+      modalCustomerInfoVisible: true
+    })
+  }
+
   render() {
     const { collapsed, collapsedMoblie, modalCustomerInfoVisible } = this.state
+    const { activities: { data } } = this.props
     return (
       <Layout>
         <Sider
@@ -140,7 +184,12 @@ class SideBarView extends React.Component {
                 Lịch sử
                 </h4>
               </div>
-              <TableView showModal={this.showCustomerInfoModal} />
+              <TableView
+                data={data}
+                viewCustomerId={this.viewCustomerId}
+                viewPhone={this.viewPhone}
+                showModal={this.showCustomerInfoModal}
+              />
             </Row>
             <CustomerInfoModal
               visible={modalCustomerInfoVisible}
@@ -152,4 +201,4 @@ class SideBarView extends React.Component {
     )
   }
 }
-export default SideBarView
+export default connect(({ activities }) => ({ activities }))(SideBarView)

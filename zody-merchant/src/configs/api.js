@@ -13,5 +13,11 @@ export default {
       url: '/login',
       method: METHODS.post
     }
+  },
+  recentActivities: () => {
+    return {
+      url: '/v2.7/merchants/activities',
+      method: METHODS.get
+    }
   }
 }
