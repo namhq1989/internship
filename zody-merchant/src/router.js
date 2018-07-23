@@ -2,11 +2,12 @@ import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic';
 import { SideBarView } from './screens/activities'
-import { LoginView } from './screens/login'
+import { LoginView, LoginModel } from './screens/login'
 
 const routes = [
   {
     path: '/login',
+    models: () => [LoginModel],
     component: () => LoginView,
     id: 1
   },

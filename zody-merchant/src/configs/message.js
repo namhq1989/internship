@@ -3,6 +3,8 @@ export default {
     RequireEmailAndPassword: 'Vui lòng điền đầy đủ thông tin đăng nhập',
     EmailIsNotValid: 'Email không đúng định dạng',
     PasswordLengthMustAtLeast6Characters: 'Mật khẩu phải có ít nhất 6 ký tự',
+    Successfully: 'Đăng nhập thành công',
+    UserBanned: 'Tài khoản của bạn đã bị khoá, vui lòng liên hệ với Zody để biết thêm chi tiết!'
   },
   Common: {
     ConfirmPopupOk: 'Đồng ý',

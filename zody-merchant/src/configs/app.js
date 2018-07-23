@@ -1,4 +1,8 @@
+
+const LocalStoragePrefix = (process.env.NODE_ENV === 'production') ? 'zody-' : 'zody-dev-'
 export default {
+
+  endpoint: 'https://dev-api.zody.vn',
   // Screen size
   screens: {
     'xs-max': 480,
@@ -32,6 +36,10 @@ export default {
     dateWithMinute: 'm'
   },
 
+  // localStorage
+  localStorage: {
+    authKey: `${LocalStoragePrefix}chain`,
+  },
   // Components default data
   components: {
     customerTypes: {
