@@ -5,7 +5,7 @@ import { Layout, Menu, Icon, Row } from 'antd'
 import { ImageConst, AppConst } from '../../configs'
 import { StatisticalCard } from '../statistic'
 import { RcRangePicker, RcCustomerType } from '../../components'
-import { CustomerInfoModal } from '../common'
+import { CustomerInfoModalView } from '../common/customer-info-modal'
 import style from './style.css'
 import TableView from './table'
 
@@ -226,7 +226,7 @@ class ActivitiesView extends React.Component {
                 showModal={this.showCustomerInfoModal}
               />
             </Row>
-            <CustomerInfoModal
+            <CustomerInfoModalView
               visible={modalCustomerInfoVisible}
               onClose={this.closeCustomerInfoModal}
               customerId={customerId}
