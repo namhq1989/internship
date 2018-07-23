@@ -1,8 +1,9 @@
 import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic';
-import { SideBarView } from './screens/activities'
+import { SideBarView, ActivitiesModel } from './screens/activities'
 import { LoginView, LoginModel } from './screens/login'
+
 
 const routes = [
   {
@@ -13,6 +14,7 @@ const routes = [
   },
   {
     path: '/activities',
+    models: () => [ActivitiesModel],
     component: () => SideBarView,
     id: 2
   },

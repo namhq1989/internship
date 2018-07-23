@@ -22,34 +22,9 @@ export default {
       }
     },
     recentActivities: () => {
-      return {
-        url: '/v2.7/chains/report/activities',
-        method: METHODS.get
-      }
-    },
-    profile: (customerId) => {
-      return {
-        url: `/v2.7/chains/report/customerProfile/${customerId}`,
-        method: METHODS.get
-      }
-    },
-    phoneActivities: (phone) => {
-      return {
-        url: `/v2.7/chains/report/phoneActivities/${phone}`,
-        method: METHODS.get
-      }
-    },
-    customerActivities: (customerId) => {
-      return {
-        url: `/v2.7/chains/report/customerActivities/${customerId}`,
-        method: METHODS.get
-      }
-    },
-    exportActivities: () => {
-      return {
-        url: '/v2.7/chains/report/export-excel/activities',
-        method: METHODS.get
-      }
+    return {
+      url: '/v2.7/merchants/activities',
+      method: METHODS.get
     }
   },
 }

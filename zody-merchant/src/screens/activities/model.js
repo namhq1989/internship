@@ -1,6 +1,6 @@
 import { AppConst, MessageConst } from '../../configs'
+import { fetch, recentActivities } from './service'
 import { Notification } from '../../components'
-import { fetch } from './service'
 
 export default {
   namespace: 'activities',
@@ -33,6 +33,26 @@ export default {
     }
   },
   effects: {
+    *recentActivities({ payload }, { call, put }) {
+      const data = yield call(recentActivities, payload)
+      if (!data || data.err) {
+        return Notification(MessageConst.ServerError, AppConst.notification.error)
+      }
+
+      const response = data.data
+      if (!response || response.err) {
+        return Notification(response.message, AppConst.notification.error)
+      }
+      yield put({
+        type: 'updateState',
+        payload: {
+          data: response.data.activities,
+          filter: {
+            ...payload
+          }
+        }
+      })
+    },
     *fetch({ payload }, { call, put }) {
       const data = yield call(fetch, payload)
       if (!data || data.err) {

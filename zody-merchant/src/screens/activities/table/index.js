@@ -4,136 +4,50 @@ import { ImageConst } from '../../../configs'
 import { format } from '../../../utils'
 import style from './style.css'
 
-const data = [{
-  key: '1',
-  name: 'Nguyen Van Can',
-  mahoadon: 'LLLL',
-  money: '30000',
-  zcoin: '112',
-  timeTichDiem: '21/06/2018, 17:02',
-  timeNhanDIem: '21/06/2018, 17:02'
-}, {
-  key: '2',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '3',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '4',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '5',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '6',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '7',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '8',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '9',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '10',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '11',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}, {
-  key: '12',
-  name: 'Nguyen Van CA',
-  mahoadon: 'MMMM',
-  money: '40000',
-  zcoin: '1122',
-  timeTichDiem: '22/06/2018, 11:05',
-  timeNhanDIem: '22/06/2018, 11:05'
-}]
 class TableView extends React.Component {
   render() {
+    const { data } = this.props
     const { showModal } = this.props
     const columns = [{
       title: 'STT',
-      dataIndex: 'key',
+      dataIndex: '',
       align: 'center',
-      key: 'key'
+      render: (value, row, index) => {
+        return (
+          <span>{index + 1}</span>
+        )
+      }
     }, {
       title: 'Thành viên',
-      dataIndex: 'name',
+      dataIndex: 'user',
       align: 'center',
-      key: 'name',
-      render: (value) => {
+      render: (value, row) => {
+        if (value) {
+          return (
+            <span
+              className={style.custumerModal}
+              onClick={() => showModal()}
+            >
+              {value.name}
+            </span>
+          )
+        }
         return (
           <span
-            className={style.custumerModal}
             onClick={() => showModal()}
           >
-            {value}
+            {row.phone}
           </span>
         )
       }
     }, {
       title: '#MÃ HOÁ ĐƠN',
-      dataIndex: 'mahoadon',
+      dataIndex: 'billId',
       align: 'center',
-      key: 'mahoadon'
     }, {
       title: 'SỐ TIỀN',
-      dataIndex: 'money',
+      dataIndex: 'price',
       align: 'center',
-      key: 'money',
       render: (value) => {
         return (
           <div>
@@ -144,9 +58,8 @@ class TableView extends React.Component {
       }
     }, {
       title: 'ZCOIN',
-      dataIndex: 'zcoin',
+      dataIndex: 'coin',
       align: 'center',
-      key: 'zcoin',
       render: (value) => {
         return (
           <div>
@@ -157,15 +70,19 @@ class TableView extends React.Component {
       }
     }, {
       title: 'THỜI GIAN TÍCH ĐIỂM',
-      dataIndex: 'timeTichDiem',
+      dataIndex: 'createdAt',
       align: 'center',
-      key: 'timeTichDiem',
+      render: (value) => {
+        return format.date(value)
+      }
     }, {
       title: 'THỜI GIAN NHẬN ĐIỂM',
-      dataIndex: 'timeNhanDIem',
+      dataIndex: 'updatedAt',
       align: 'center',
       sorter: true,
-      key: 'timeNhanDIem'
+      render: (value) => {
+        return format.date(value)
+      }
     }]
     return (
       <Table
@@ -173,6 +90,7 @@ class TableView extends React.Component {
         columns={columns}
         dataSource={data}
         className={style.tableView}
+        rowKey="_id"
       />
     )
   }

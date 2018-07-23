@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'dva'
+import lodash from 'lodash'
 import { Layout, Menu, Icon, Row } from 'antd'
 import { connect } from 'dva'
 import lodash from 'lodash'
@@ -16,7 +18,9 @@ class SideBarView extends React.Component {
     this.state = {
       collapsed: false,
       collapsedMoblie: false,
-      modalCustomerInfoVisible: false
+      modalCustomerInfoVisible: false,
+      customerId: '',
+      phone: ''
     }
   }
 
@@ -32,6 +36,9 @@ class SideBarView extends React.Component {
 
     const statisticQuery = lodash.pick(filter, ['start', 'end', 'status'])
     this.loadStatistic(statisticQuery)
+    
+    const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status'])
+    this.loadRecentActivities(recentActivitiesQuery)
   }
 
   getScreenSize = () => {
@@ -52,6 +59,15 @@ class SideBarView extends React.Component {
     return filter
   }
 
+  // load  data table activities
+  loadRecentActivities = (filter) => {
+    const { dispatch } = this.props
+    console.log('dta filter ', filter)
+    dispatch({
+      type: 'activities/recentActivities',
+       payload: { ...filter }
+    })
+  }
   loadStatistic = (filter) => {
     const { dispatch } = this.props
     dispatch({
@@ -89,6 +105,21 @@ class SideBarView extends React.Component {
     })
   }
 
+  viewCustomerId =(customerId) => {
+    this.setState({
+      customerId,
+      phone: '',
+      modalCustomerInfoVisible: true
+    })
+  }
+
+  viewPhone = (phone) => {
+    this.setState({
+      customerId: '',
+      phone,
+      modalCustomerInfoVisible: true
+    })
+  
   // Rangepicker selected
   dateSelected = (start, end) => {
     this.onFilterChange({ start, end })
@@ -101,7 +132,7 @@ class SideBarView extends React.Component {
 
   render() {
     const { collapsed, collapsedMoblie, modalCustomerInfoVisible } = this.state
-    const { activities: { statistic, filter } } = this.props
+    const { activities: { statistic, filter, data } } = this.props
     let coinDesc = 'Cho thành viên đã sử dụng app'
     if (filter.status === 'all') {
       coinDesc = 'Cho tất cả thành viên'
@@ -189,7 +220,12 @@ class SideBarView extends React.Component {
                 Lịch sử
                 </h4>
               </div>
-              <TableView showModal={this.showCustomerInfoModal} />
+              <TableView
+                data={data}
+                viewCustomerId={this.viewCustomerId}
+                viewPhone={this.viewPhone}
+                showModal={this.showCustomerInfoModal}
+              />
             </Row>
             <CustomerInfoModal
               visible={modalCustomerInfoVisible}
