@@ -145,6 +145,13 @@ class ActivitiesView extends React.Component {
     this.onFilterChange({ status })
   }
 
+  logout = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'activities/logout'
+    })
+  }
+
   render() {
     const { collapsed, collapsedMoblie, modalCustomerInfoVisible, customerId, phone } = this.state
     const { activities: { statistic, filter, data } } = this.props
@@ -176,7 +183,7 @@ class ActivitiesView extends React.Component {
                 Lịch sử tích điểm
               </span>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="2" onClick={this.logout}>
               <Icon type="logout" />
               <span>
                 Dang xuat

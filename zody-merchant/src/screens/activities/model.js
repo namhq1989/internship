@@ -72,6 +72,11 @@ export default {
           ...payload
         }
       })
-    }
-  }
+    },
+    logout() {
+      localStorage.removeItem(AppConst.localStorage.authKey)
+      // Redirect to login page
+      window.location.href = '/#/login'
+    },
+  },
 }
