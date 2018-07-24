@@ -1,6 +1,25 @@
 import { request } from '../../../utils'
 import { ApiConst } from '../../../configs'
 
+const loadProfile = (customerId) => {
+  const api = ApiConst.activities.profile()
+  const url = `${api.url}${customerId}`
+  return request(url, {
+    method: api.method,
+  })
+}
+
+const saveNote = (noteContent, customerId) => {
+  const api = ApiConst.activities.updateCustomer()
+  const url = `${api.url}${customerId}`
+  return request(url, {
+    method: api.method,
+    body: {
+      note: noteContent
+    }
+  })
+}
+
 const fetch = ({ customerId, phone, sort }) => {
   let api = ApiConst.activities.phoneActivities(phone)
   if (customerId) {
@@ -23,5 +42,7 @@ const deleteBill = ({ billId }) => {
 
 export {
   fetch,
-  deleteBill
+  deleteBill,
+  loadProfile,
+  saveNote
 }

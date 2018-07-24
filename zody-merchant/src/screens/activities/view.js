@@ -35,7 +35,18 @@ class ActivitiesView extends React.Component {
     const statisticQuery = lodash.pick(filter, ['start', 'end', 'status'])
     this.loadStatistic(statisticQuery)
 
-    const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status'])
+    const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status', 'sort'])
+    this.loadRecentActivities(recentActivitiesQuery)
+  }
+
+  onChangeTable = (pagination, filters, sorter) => {
+    const { field, order } = sorter
+    let sort = field
+    if (order === 'descend') {
+      sort = `-${sort}`
+    }
+    const filter = this.mergeState({ sort })
+    const recentActivitiesQuery = lodash.pick(filter, ['start', 'end', 'status', 'page', 'sort'])
     this.loadRecentActivities(recentActivitiesQuery)
   }
 
@@ -104,6 +115,7 @@ class ActivitiesView extends React.Component {
     const { dispatch } = this.props
     dispatch({
       type: 'customerInfo/resetState',
+      payload: {}
     })
   }
 
@@ -228,6 +240,7 @@ class ActivitiesView extends React.Component {
                 viewCustomerId={this.viewCustomerId}
                 viewPhone={this.viewPhone}
                 showModal={this.showCustomerInfoModal}
+                onChange={this.onChangeTable}
               />
             </Row>
             <CustomerInfoModalView

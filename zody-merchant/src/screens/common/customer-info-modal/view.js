@@ -91,18 +91,39 @@ class CustomerInfoModalView extends React.Component {
       isEnd: true,
       sort: '-createdAt',
       page: 0,
-      profile: null,
       isEditNote: false,
       noteContent: ''
     }
   }
 
-  componentWillReceiveProps(newProp) {
-    const { customerId, phone } = newProp
-    const { customerInfo } = this.props
-    if (!customerInfo.data.length) {
+  componentWillReceiveProps(newProps) {
+    const { visible, customerId, phone } = newProps
+    const { customerInfo: { dataProfile, data } } = this.props
+    if (!data.length) {
       this.loadActivities(customerId, phone)
     }
+    if (this.isEmpty(dataProfile)) {
+      if (visible) {
+        if (customerId) {
+          this.loadProfile(customerId)
+        }
+      }
+    }
+  }
+
+  isEmpty = (obj) => {
+    for (const i in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, i)) { return false }
+    }
+    return true
+  }
+
+  loadProfile = (customerId) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/loadProfile',
+      payload: customerId
+    })
   }
 
   onTableChange = (pagination, filter, sorter) => {
@@ -112,7 +133,6 @@ class CustomerInfoModalView extends React.Component {
     if (order === 'descend') {
       sort = `-${sort}`
     }
-    // Return if is current sort
     if (!sort || sort === customerInfo.sort) {
       return ''
     }
@@ -137,6 +157,26 @@ class CustomerInfoModalView extends React.Component {
       document.getElementById('note-content').focus()
     })
   }
+
+  saveNoteEdit = () => {
+    const { noteContent } = this.state
+    const { customerId } = this.props
+    if (noteContent === '') {
+      return this.cancelNoteEdit()
+    }
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/saveNote',
+      payload: {
+        noteContent,
+        customerId
+      }
+    })
+    this.setState({
+      isEditNote: false
+    })
+  }
+
 
   cancelNoteEdit = () => {
     this.setState({
@@ -168,9 +208,9 @@ class CustomerInfoModalView extends React.Component {
   }
 
   render() {
-    const { visible, phone, customerId, customerInfo } = this.props
-    const { data } = customerInfo
-    const { isEditNote, noteContent } = this.state
+    const { visible } = this.props
+    const { customerInfo: { dataProfile, data } } = this.props
+    const { isEditNote } = this.state
     return (
       <Modal
         title="THÔNG TIN THÀNH VIÊN"
@@ -183,34 +223,39 @@ class CustomerInfoModalView extends React.Component {
       >
         <Row gutter={16}>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <div>
-              <Row className={style.profileInfo}>
-                <h5>
-                  User Name {phone} va {customerId}
-                </h5>
-                <Row className={style.basicInfo}>
-                  <Col className={style.item} span={12}>
-                    <Icon type="environment-o" />
-                    <span>City</span>
-                  </Col>
-                  <Col className={style.item} span={12}>
-                    <Icon type="user" />
-                    <span>Nam</span>
-                  </Col>
+            {
+            this.isEmpty(dataProfile) ?
+              <p className="not-using-app-text">Số điện thoại này chưa đăng ký sử dụng Zody</p>
+              :
+              <div>
+                <Row className={style.profileInfo}>
+                  <img className={style.profileAvatar} src={dataProfile.user.avatar} alt="" />
+                  <h5>
+                    {dataProfile.user.name}
+                  </h5>
+                  <Row className={style.basicInfo}>
+                    <Col className={style.item} span={12}>
+                      <Icon type="environment-o" />
+                      <span>{format.city(dataProfile.user.city)}</span>
+                    </Col>
+                    <Col className={style.item} span={12}>
+                      <Icon type="user" />
+                      <span>{format.gender(dataProfile.user.gender)}</span>
+                    </Col>
+                  </Row>
                 </Row>
-              </Row>
-              {
+                {
                 !isEditNote
                   ?
                     <Row className={style.customerNote} onClick={this.editNote}>
-                      <Icon type="edit" /> <span>Thêm ghi chú khách hàng</span>
+                      <Icon type="edit" /> <span>{dataProfile.note || 'Thêm ghi chú khách hàng'}</span>
                     </Row>
                   :
                     <div style={{ paddingBottom: 30 }}>
                       <Row className="customer-note">
                         <Input.TextArea
                           id="note-content"
-                          value={noteContent}
+                          defaultValue={dataProfile.note}
                           onChange={e => this.setState({ noteContent: e.target.value })}
                           onPressEnter={this.saveNoteEdit}
                         />
@@ -219,35 +264,36 @@ class CustomerInfoModalView extends React.Component {
                       <Button type="default" size="small" className={style.btnEdit} onClick={this.cancelNoteEdit}>Huỷ</Button>
                     </div>
               }
-              <Row>
-                <table className={style.profiletable}>
-                  <tbody>
-                    <tr>
-                      <td>SDT</td>
-                      <td className={style.tabledata}>Phone Number</td>
-                    </tr>
-                    <tr>
-                      <td>Facebook</td>
-                      <td className={style.tabledata}>
-                        <a href="/#" target="blank">Xem</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ngày sinh</td>
-                      <td className={style.tabledata}>01/02/1993</td>
-                    </tr>
-                    <tr>
-                      <td>Chi tiêu</td>
-                      <td className={style.tabledata}>{format.numbers(120000)}</td>
-                    </tr>
-                    <tr>
-                      <td>Lượt giao dịch</td>
-                      <td className={style.tabledata}>2</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Row>
-            </div>
+                <Row>
+                  <table className={style.profiletable}>
+                    <tbody>
+                      <tr>
+                        <td>SDT</td>
+                        <td className={style.tabledata}>phone</td>
+                      </tr>
+                      <tr>
+                        <td>Facebook</td>
+                        <td className={style.tabledata}>
+                          <a href="/#" target="blank">Xem</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Ngày sinh</td>
+                        <td className={style.tabledata}>{format.date(dataProfile.user.birthday)}</td>
+                      </tr>
+                      <tr>
+                        <td>Chi tiêu</td>
+                        <td className={style.tabledata}>{format.numbers(dataProfile.totalExpense)}</td>
+                      </tr>
+                      <tr>
+                        <td>Lượt giao dịch</td>
+                        <td className={style.tabledata}>{dataProfile.totalBill}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Row>
+              </div>
+          }
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={18}>
             <Table

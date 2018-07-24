@@ -27,6 +27,18 @@ export default {
         method: METHODS.get
       }
     },
+    profile: () => {
+      return {
+        url: '/v2.7/merchants/customerProfile/',
+        method: METHODS.get
+      }
+    },
+    updateCustomer: () => {
+      return {
+        url: '/merchants/customerInfo/',
+        method: METHODS.put
+      }
+    },
     phoneActivities: (phone) => {
       return {
         url: `/v2.7/merchants/phoneActivities/${phone}`,
