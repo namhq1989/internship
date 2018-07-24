@@ -27,5 +27,23 @@ export default {
         method: METHODS.get
       }
     },
+    phoneActivities: (phone) => {
+      return {
+        url: `/v2.7/merchants/phoneActivities/${phone}`,
+        method: METHODS.get
+      }
+    },
+    customerActivities: (customerId) => {
+      return {
+        url: `/v2.7/merchants/customerActivities/${customerId}`,
+        method: METHODS.get
+      }
+    },
+    deleteBill: (billId) => {
+      return {
+        url: `/bills/${billId}`,
+        method: METHODS.delete
+      }
+    }
   }
 }

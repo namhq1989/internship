@@ -1,97 +1,87 @@
 import React from 'react'
+import { connect } from 'dva'
 import { Popconfirm, Icon, Modal, Row, Col, Table, Button, Input } from 'antd'
 import { ImageConst, MessageConst } from '../../../configs'
 import { format } from '../../../utils'
 import style from './style.css'
 
-const data = [
-  {
-    activity: 'Tich luy hoa don',
-    id: 1,
-    bill: {
-      price: '50000'
-    },
-    coin: '10',
-    createdAt: '10/07/2018, 15:24'
-  }, {
-    activity: 'Tich luy hoa don',
-    id: 2,
-    bill: {
-      price: '5000'
-    },
-    coin: '10',
-    createdAt: '10/07/2018, 15:24'
-  }
-]
-const columns = [
-  {
-    title: 'STT',
-    dataIndex: '',
-    render: (value, record, index) => {
-      return (<span>{index + 1}</span>)
-    }
-  }, {
-    title: 'HOẠT ĐỘNG',
-    dataIndex: 'activity',
-    render: (value) => {
-      return (
-        <div>
-          <img src={ImageConst.imageActivity} alt="" className={style.iconBill} />
-          <span>{value}</span>
-        </div>
-      )
-    }
-  }, {
-    title: '#MÃ HOÁ ĐƠN',
-    dataIndex: 'bill',
-    render: (value) => {
-      return (value) ? <span>{value.id}</span> : ''
-    }
-  }, {
-    title: 'SỐ TIỀN',
-    dataIndex: 'bill',
-    render: (value) => {
-      if (!value) {
-        return ''
+
+const columns = (context) => {
+  const array = [
+    {
+      title: 'STT',
+      dataIndex: '',
+      render: (value, record, index) => {
+        return (<span>{index + 1}</span>)
       }
-      return (
-        <div>
-          <img src={ImageConst.imageDolar} alt="" className={style.iconCoin} />
-          <span>{format.numbers(value.price)}</span>
-        </div>
-      )
+    }, {
+      title: 'HOẠT ĐỘNG',
+      dataIndex: '',
+      render: () => {
+        return (
+          <div>
+            <img src={ImageConst.imageActivity} alt="" className={style.iconBill} />
+            <span>Tich luy hoa don</span>
+          </div>
+        )
+      }
+    }, {
+      title: '#MÃ HOÁ ĐƠN',
+      dataIndex: '',
+      render: (value) => {
+        return (value) ? <span>{value.billId}</span> : ''
+      }
+    }, {
+      title: 'SỐ TIỀN',
+      dataIndex: 'bill',
+      render: (value) => {
+        if (!value) {
+          return ''
+        }
+        return (
+          <div>
+            <img src={ImageConst.imageDolar} alt="" className={style.iconCoin} />
+            <span>{format.numbers(value.price)}</span>
+          </div>
+        )
+      }
+    }, {
+      title: 'ZCOIN',
+      dataIndex: 'coin',
+      render: (value) => {
+        return (
+          <div>
+            <img src={ImageConst.imageZcoin} alt="" className={style.iconCoin} />
+            <span>{format.numbers(value)}</span>
+          </div>
+        )
+      }
+    }, {
+      title: 'THỜI GIAN TÍCH ĐIỂM',
+      dataIndex: 'createdAt',
+      render: (value) => {
+        return format.date(value)
+      },
+      sorter: true
+    }, {
+      title: '',
+      dataIndex: '',
+      render: (value, row) => {
+        return (
+          <Popconfirm
+            title={MessageConst.Common.ConfirmDeleteBill}
+            okText={MessageConst.Common.ConfirmPopupOk}
+            cancelText={MessageConst.Common.ConfirmPopupCancel}
+            onConfirm={() => context.deleteBill(row.bill._id)}
+          >
+            <Icon type="close" title="Xoá" className="cursor-pointer" />
+          </Popconfirm>
+        )
+      }
     }
-  }, {
-    title: 'ZCOIN',
-    dataIndex: 'coin',
-    render: (value) => {
-      return (
-        <div>
-          <img src={ImageConst.imageZcoin} alt="" className={style.iconCoin} />
-          <span>{format.numbers(value)}</span>
-        </div>
-      )
-    }
-  }, {
-    title: 'THỜI GIAN TÍCH ĐIỂM',
-    dataIndex: 'createdAt',
-    sorter: true
-  }, {
-    title: '',
-    dataIndex: '',
-    render: () => {
-      return (
-        <Popconfirm
-          title={MessageConst.Common.ConfirmDeleteBill}
-          okText={MessageConst.Common.ConfirmPopupOk}
-          cancelText={MessageConst.Common.ConfirmPopupCancel}
-        >
-          <Icon type="close" title="Xoá" className="cursor-pointer" />
-        </Popconfirm>
-      )
-    }
-  }
-]
+  ]
+  return array
+}
 class CustomerInfoModalView extends React.Component {
   constructor(props) {
     super(props)
@@ -105,6 +95,34 @@ class CustomerInfoModalView extends React.Component {
       isEditNote: false,
       noteContent: ''
     }
+  }
+
+  componentWillReceiveProps(newProp) {
+    const { customerId, phone } = newProp
+    const { customerInfo } = this.props
+    if (!customerInfo.data.length) {
+      this.loadActivities(customerId, phone)
+    }
+  }
+
+  onTableChange = (pagination, filter, sorter) => {
+    const { field, order } = sorter
+    const { dispatch, customerId, phone, customerInfo } = this.props
+    let sort = field
+    if (order === 'descend') {
+      sort = `-${sort}`
+    }
+    // Return if is current sort
+    if (!sort || sort === customerInfo.sort) {
+      return ''
+    }
+    dispatch({
+      type: 'customerInfo/updateSort',
+      payload: {
+        sort,
+      }
+    })
+    this.loadActivities(customerId, phone)
   }
 
   toggle = () => {
@@ -126,8 +144,32 @@ class CustomerInfoModalView extends React.Component {
     })
   }
 
+  deleteBill = (billId) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/remove',
+      payload: {
+        billId
+      }
+    })
+  }
+
+  loadActivities = (customerId, phone) => {
+    const { customerInfo, dispatch } = this.props
+    const { sort } = customerInfo
+    dispatch({
+      type: 'customerInfo/fetch',
+      payload: {
+        customerId,
+        phone,
+        sort
+      }
+    })
+  }
+
   render() {
-    const { visible, phone, customerId } = this.props
+    const { visible, phone, customerId, customerInfo } = this.props
+    const { data } = customerInfo
     const { isEditNote, noteContent } = this.state
     return (
       <Modal
@@ -210,9 +252,10 @@ class CustomerInfoModalView extends React.Component {
           <Col xs={24} sm={24} md={24} lg={18} xl={18}>
             <Table
               dataSource={data}
-              columns={columns}
+              columns={columns(this)}
               pagination={false}
-              rowKey={record => record.id}
+              onChange={this.onTableChange}
+              rowKey={record => record._id}
             />
           </Col>
         </Row>
@@ -221,4 +264,4 @@ class CustomerInfoModalView extends React.Component {
   }
 }
 
-export default CustomerInfoModalView
+export default connect(({ customerInfo }) => ({ customerInfo }))(CustomerInfoModalView)
