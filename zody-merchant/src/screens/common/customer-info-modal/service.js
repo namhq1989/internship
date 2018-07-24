@@ -19,7 +19,30 @@ const saveNote = (noteContent, customerId) => {
     }
   })
 }
+
+const fetch = ({ customerId, phone, sort }) => {
+  let api = ApiConst.activities.phoneActivities(phone)
+  if (customerId) {
+    api = ApiConst.activities.customerActivities(customerId)
+  }
+  return request(api.url, {
+    method: api.method,
+    body: {
+      sort
+    }
+  })
+}
+
+const deleteBill = ({ billId }) => {
+  const api = ApiConst.activities.deleteBill(billId)
+  return request(api.url, {
+    method: api.method
+  })
+}
+
 export {
+  fetch,
+  deleteBill,
   loadProfile,
   saveNote
 }

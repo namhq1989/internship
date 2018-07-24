@@ -1,9 +1,87 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Icon, Modal, Row, Col, Button, Input } from 'antd'
+import { Popconfirm, Icon, Modal, Row, Col, Table, Button, Input } from 'antd'
+import { ImageConst, MessageConst } from '../../../configs'
 import { format } from '../../../utils'
 import style from './style.css'
 
+
+const columns = (context) => {
+  const array = [
+    {
+      title: 'STT',
+      dataIndex: '',
+      render: (value, record, index) => {
+        return (<span>{index + 1}</span>)
+      }
+    }, {
+      title: 'HOẠT ĐỘNG',
+      dataIndex: '',
+      render: () => {
+        return (
+          <div>
+            <img src={ImageConst.imageActivity} alt="" className={style.iconBill} />
+            <span>Tich luy hoa don</span>
+          </div>
+        )
+      }
+    }, {
+      title: '#MÃ HOÁ ĐƠN',
+      dataIndex: '',
+      render: (value) => {
+        return (value) ? <span>{value.billId}</span> : ''
+      }
+    }, {
+      title: 'SỐ TIỀN',
+      dataIndex: 'bill',
+      render: (value) => {
+        if (!value) {
+          return ''
+        }
+        return (
+          <div>
+            <img src={ImageConst.imageDolar} alt="" className={style.iconCoin} />
+            <span>{format.numbers(value.price)}</span>
+          </div>
+        )
+      }
+    }, {
+      title: 'ZCOIN',
+      dataIndex: 'coin',
+      render: (value) => {
+        return (
+          <div>
+            <img src={ImageConst.imageZcoin} alt="" className={style.iconCoin} />
+            <span>{format.numbers(value)}</span>
+          </div>
+        )
+      }
+    }, {
+      title: 'THỜI GIAN TÍCH ĐIỂM',
+      dataIndex: 'createdAt',
+      render: (value) => {
+        return format.date(value)
+      },
+      sorter: true
+    }, {
+      title: '',
+      dataIndex: '',
+      render: (value, row) => {
+        return (
+          <Popconfirm
+            title={MessageConst.Common.ConfirmDeleteBill}
+            okText={MessageConst.Common.ConfirmPopupOk}
+            cancelText={MessageConst.Common.ConfirmPopupCancel}
+            onConfirm={() => context.deleteBill(row.bill._id)}
+          >
+            <Icon type="close" title="Xoá" className="cursor-pointer" />
+          </Popconfirm>
+        )
+      }
+    }
+  ]
+  return array
+}
 class CustomerInfoModalView extends React.Component {
   constructor(props) {
     super(props)
@@ -19,8 +97,11 @@ class CustomerInfoModalView extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { visible, customerId } = newProps
-    const { customerInfo: { dataProfile } } = this.props
+    const { visible, customerId, phone } = newProps
+    const { customerInfo: { dataProfile, data } } = this.props
+    if (!data.length) {
+      this.loadActivities(customerId, phone)
+    }
     if (this.isEmpty(dataProfile)) {
       if (visible) {
         if (customerId) {
@@ -43,6 +124,25 @@ class CustomerInfoModalView extends React.Component {
       type: 'customerInfo/loadProfile',
       payload: customerId
     })
+  }
+
+  onTableChange = (pagination, filter, sorter) => {
+    const { field, order } = sorter
+    const { dispatch, customerId, phone, customerInfo } = this.props
+    let sort = field
+    if (order === 'descend') {
+      sort = `-${sort}`
+    }
+    if (!sort || sort === customerInfo.sort) {
+      return ''
+    }
+    dispatch({
+      type: 'customerInfo/updateSort',
+      payload: {
+        sort,
+      }
+    })
+    this.loadActivities(customerId, phone)
   }
 
   toggle = () => {
@@ -84,9 +184,32 @@ class CustomerInfoModalView extends React.Component {
     })
   }
 
+  deleteBill = (billId) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/remove',
+      payload: {
+        billId
+      }
+    })
+  }
+
+  loadActivities = (customerId, phone) => {
+    const { customerInfo, dispatch } = this.props
+    const { sort } = customerInfo
+    dispatch({
+      type: 'customerInfo/fetch',
+      payload: {
+        customerId,
+        phone,
+        sort
+      }
+    })
+  }
+
   render() {
     const { visible } = this.props
-    const { customerInfo: { dataProfile } } = this.props
+    const { customerInfo: { dataProfile, data } } = this.props
     const { isEditNote } = this.state
     return (
       <Modal
@@ -173,12 +296,13 @@ class CustomerInfoModalView extends React.Component {
           }
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={18}>
-            {/* <Table
+            <Table
               dataSource={data}
-              columns={columns}
+              columns={columns(this)}
               pagination={false}
-              rowKey="_id"
-            /> */}
+              onChange={this.onTableChange}
+              rowKey={record => record._id}
+            />
           </Col>
         </Row>
       </Modal>
