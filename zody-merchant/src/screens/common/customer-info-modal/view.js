@@ -111,21 +111,6 @@ class CustomerInfoModalView extends React.Component {
     }
   }
 
-  isEmpty = (obj) => {
-    for (const i in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, i)) { return false }
-    }
-    return true
-  }
-
-  loadProfile = (customerId) => {
-    const { dispatch } = this.props
-    dispatch({
-      type: 'customerInfo/loadProfile',
-      payload: customerId
-    })
-  }
-
   onTableChange = (pagination, filter, sorter) => {
     const { field, order } = sorter
     const { dispatch, customerId, phone, customerInfo } = this.props
@@ -143,6 +128,21 @@ class CustomerInfoModalView extends React.Component {
       }
     })
     this.loadActivities(customerId, phone)
+  }
+
+  isEmpty = (obj) => {
+    for (const i in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, i)) { return false }
+    }
+    return true
+  }
+
+  loadProfile = (customerId) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/loadProfile',
+      payload: customerId
+    })
   }
 
   toggle = () => {
@@ -173,7 +173,8 @@ class CustomerInfoModalView extends React.Component {
       }
     })
     this.setState({
-      isEditNote: false
+      isEditNote: false,
+      noteContent,
     })
   }
 
