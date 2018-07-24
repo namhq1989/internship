@@ -101,6 +101,10 @@ class ActivitiesView extends React.Component {
     this.setState({
       modalCustomerInfoVisible: false
     })
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/resetState',
+    })
   }
 
   viewCustomerId =(customerId) => {
