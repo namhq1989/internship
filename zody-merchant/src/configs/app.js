@@ -37,6 +37,32 @@ export default {
     dateWithMinute: 'm'
   },
 
+  // App display text
+  displayText: {
+    activities: [{
+      id: 'bill',
+      text: 'Tích luỹ hoá đơn',
+      icon: 'iconBill'
+    }, {
+      id: 'checkin',
+      text: 'Check-in',
+      icon: 'iconCheckin'
+    }],
+    cities: [{
+      id: 'da-nang',
+      text: 'Đà Nẵng'
+    }, {
+      id: 'ho-chi-minh',
+      text: 'TPHCM'
+    }],
+    genders: [{
+      id: 'male',
+      text: 'Nam'
+    }, {
+      id: 'female',
+      text: 'Nữ'
+    }]
+  },
   // localStorage
   localStorage: {
     authKey: `${LocalStoragePrefix}chain`,

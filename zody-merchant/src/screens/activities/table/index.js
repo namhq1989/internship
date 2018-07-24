@@ -6,8 +6,9 @@ import style from './style.css'
 
 class TableView extends React.Component {
   render() {
-    const { data } = this.props
+    const { data, onChange } = this.props
     const { viewCustomerId, viewPhone } = this.props
+
     const columns = [{
       title: 'STT',
       dataIndex: '',
@@ -90,6 +91,7 @@ class TableView extends React.Component {
         columns={columns}
         dataSource={data}
         className={style.tableView}
+        onChange={onChange}
         rowKey="_id"
       />
     )

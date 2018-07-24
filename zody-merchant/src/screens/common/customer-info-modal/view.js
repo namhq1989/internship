@@ -1,97 +1,9 @@
 import React from 'react'
-import { Popconfirm, Icon, Modal, Row, Col, Table, Button, Input } from 'antd'
-import { ImageConst, MessageConst } from '../../../configs'
+import { connect } from 'dva'
+import { Icon, Modal, Row, Col, Button, Input } from 'antd'
 import { format } from '../../../utils'
 import style from './style.css'
 
-const data = [
-  {
-    activity: 'Tich luy hoa don',
-    id: 1,
-    bill: {
-      price: '50000'
-    },
-    coin: '10',
-    createdAt: '10/07/2018, 15:24'
-  }, {
-    activity: 'Tich luy hoa don',
-    id: 2,
-    bill: {
-      price: '5000'
-    },
-    coin: '10',
-    createdAt: '10/07/2018, 15:24'
-  }
-]
-const columns = [
-  {
-    title: 'STT',
-    dataIndex: '',
-    render: (value, record, index) => {
-      return (<span>{index + 1}</span>)
-    }
-  }, {
-    title: 'HOẠT ĐỘNG',
-    dataIndex: 'activity',
-    render: (value) => {
-      return (
-        <div>
-          <img src={ImageConst.imageActivity} alt="" className={style.iconBill} />
-          <span>{value}</span>
-        </div>
-      )
-    }
-  }, {
-    title: '#MÃ HOÁ ĐƠN',
-    dataIndex: 'bill',
-    render: (value) => {
-      return (value) ? <span>{value.id}</span> : ''
-    }
-  }, {
-    title: 'SỐ TIỀN',
-    dataIndex: 'bill',
-    render: (value) => {
-      if (!value) {
-        return ''
-      }
-      return (
-        <div>
-          <img src={ImageConst.imageDolar} alt="" className={style.iconCoin} />
-          <span>{format.numbers(value.price)}</span>
-        </div>
-      )
-    }
-  }, {
-    title: 'ZCOIN',
-    dataIndex: 'coin',
-    render: (value) => {
-      return (
-        <div>
-          <img src={ImageConst.imageZcoin} alt="" className={style.iconCoin} />
-          <span>{format.numbers(value)}</span>
-        </div>
-      )
-    }
-  }, {
-    title: 'THỜI GIAN TÍCH ĐIỂM',
-    dataIndex: 'createdAt',
-    sorter: true
-  }, {
-    title: '',
-    dataIndex: '',
-    render: () => {
-      return (
-        <Popconfirm
-          title={MessageConst.Common.ConfirmDeleteBill}
-          okText={MessageConst.Common.ConfirmPopupOk}
-          cancelText={MessageConst.Common.ConfirmPopupCancel}
-        >
-          <Icon type="close" title="Xoá" className="cursor-pointer" />
-        </Popconfirm>
-      )
-    }
-  }
-]
 class CustomerInfoModalView extends React.Component {
   constructor(props) {
     super(props)
@@ -101,10 +13,36 @@ class CustomerInfoModalView extends React.Component {
       isEnd: true,
       sort: '-createdAt',
       page: 0,
-      profile: null,
       isEditNote: false,
       noteContent: ''
     }
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { visible, customerId } = newProps
+    const { customerInfo: { dataProfile } } = this.props
+    if (this.isEmpty(dataProfile)) {
+      if (visible) {
+        if (customerId) {
+          this.loadProfile(customerId)
+        }
+      }
+    }
+  }
+
+  isEmpty = (obj) => {
+    for (const i in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, i)) { return false }
+    }
+    return true
+  }
+
+  loadProfile = (customerId) => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/loadProfile',
+      payload: customerId
+    })
   }
 
   toggle = () => {
@@ -120,6 +58,26 @@ class CustomerInfoModalView extends React.Component {
     })
   }
 
+  saveNoteEdit = () => {
+    const { noteContent } = this.state
+    const { customerId } = this.props
+    if (noteContent === '') {
+      return this.cancelNoteEdit()
+    }
+    const { dispatch } = this.props
+    dispatch({
+      type: 'customerInfo/saveNote',
+      payload: {
+        noteContent,
+        customerId
+      }
+    })
+    this.setState({
+      isEditNote: false
+    })
+  }
+
+
   cancelNoteEdit = () => {
     this.setState({
       isEditNote: false
@@ -127,8 +85,9 @@ class CustomerInfoModalView extends React.Component {
   }
 
   render() {
-    const { visible, phone, customerId } = this.props
-    const { isEditNote, noteContent } = this.state
+    const { visible } = this.props
+    const { customerInfo: { dataProfile } } = this.props
+    const { isEditNote } = this.state
     return (
       <Modal
         title="THÔNG TIN THÀNH VIÊN"
@@ -141,34 +100,39 @@ class CustomerInfoModalView extends React.Component {
       >
         <Row gutter={16}>
           <Col xs={24} sm={24} md={24} lg={6} xl={6}>
-            <div>
-              <Row className={style.profileInfo}>
-                <h5>
-                  User Name {phone} va {customerId}
-                </h5>
-                <Row className={style.basicInfo}>
-                  <Col className={style.item} span={12}>
-                    <Icon type="environment-o" />
-                    <span>City</span>
-                  </Col>
-                  <Col className={style.item} span={12}>
-                    <Icon type="user" />
-                    <span>Nam</span>
-                  </Col>
+            {
+            this.isEmpty(dataProfile) ?
+              <p className="not-using-app-text">Số điện thoại này chưa đăng ký sử dụng Zody</p>
+              :
+              <div>
+                <Row className={style.profileInfo}>
+                  <img className={style.profileAvatar} src={dataProfile.user.avatar} alt="" />
+                  <h5>
+                    {dataProfile.user.name}
+                  </h5>
+                  <Row className={style.basicInfo}>
+                    <Col className={style.item} span={12}>
+                      <Icon type="environment-o" />
+                      <span>{format.city(dataProfile.user.city)}</span>
+                    </Col>
+                    <Col className={style.item} span={12}>
+                      <Icon type="user" />
+                      <span>{format.gender(dataProfile.user.gender)}</span>
+                    </Col>
+                  </Row>
                 </Row>
-              </Row>
-              {
+                {
                 !isEditNote
                   ?
                     <Row className={style.customerNote} onClick={this.editNote}>
-                      <Icon type="edit" /> <span>Thêm ghi chú khách hàng</span>
+                      <Icon type="edit" /> <span>{dataProfile.note || 'Thêm ghi chú khách hàng'}</span>
                     </Row>
                   :
                     <div style={{ paddingBottom: 30 }}>
                       <Row className="customer-note">
                         <Input.TextArea
                           id="note-content"
-                          value={noteContent}
+                          defaultValue={dataProfile.note}
                           onChange={e => this.setState({ noteContent: e.target.value })}
                           onPressEnter={this.saveNoteEdit}
                         />
@@ -177,43 +141,44 @@ class CustomerInfoModalView extends React.Component {
                       <Button type="default" size="small" className={style.btnEdit} onClick={this.cancelNoteEdit}>Huỷ</Button>
                     </div>
               }
-              <Row>
-                <table className={style.profiletable}>
-                  <tbody>
-                    <tr>
-                      <td>SDT</td>
-                      <td className={style.tabledata}>Phone Number</td>
-                    </tr>
-                    <tr>
-                      <td>Facebook</td>
-                      <td className={style.tabledata}>
-                        <a href="/#" target="blank">Xem</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Ngày sinh</td>
-                      <td className={style.tabledata}>01/02/1993</td>
-                    </tr>
-                    <tr>
-                      <td>Chi tiêu</td>
-                      <td className={style.tabledata}>{format.numbers(120000)}</td>
-                    </tr>
-                    <tr>
-                      <td>Lượt giao dịch</td>
-                      <td className={style.tabledata}>2</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Row>
-            </div>
+                <Row>
+                  <table className={style.profiletable}>
+                    <tbody>
+                      <tr>
+                        <td>SDT</td>
+                        <td className={style.tabledata}>phone</td>
+                      </tr>
+                      <tr>
+                        <td>Facebook</td>
+                        <td className={style.tabledata}>
+                          <a href="/#" target="blank">Xem</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Ngày sinh</td>
+                        <td className={style.tabledata}>{format.date(dataProfile.user.birthday)}</td>
+                      </tr>
+                      <tr>
+                        <td>Chi tiêu</td>
+                        <td className={style.tabledata}>{format.numbers(dataProfile.totalExpense)}</td>
+                      </tr>
+                      <tr>
+                        <td>Lượt giao dịch</td>
+                        <td className={style.tabledata}>{dataProfile.totalBill}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Row>
+              </div>
+          }
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={18}>
-            <Table
+            {/* <Table
               dataSource={data}
               columns={columns}
               pagination={false}
-              rowKey={record => record.id}
-            />
+              rowKey="_id"
+            /> */}
           </Col>
         </Row>
       </Modal>
@@ -221,4 +186,4 @@ class CustomerInfoModalView extends React.Component {
   }
 }
 
-export default CustomerInfoModalView
+export default connect(({ customerInfo }) => ({ customerInfo }))(CustomerInfoModalView)
