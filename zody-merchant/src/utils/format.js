@@ -30,9 +30,19 @@ const gender = (value) => {
   const obj = lodash.find(AppConst.displayText.genders, item => item.id === value)
   return obj ? obj.text : 'N/A'
 }
+
+// Format date with no hour value
+const dateWithNoHour = (value) => {
+  if (!value) {
+    return ''
+  }
+
+  return moment(value).format(AppConst.format.dateWithNoHour)
+}
 export default {
   date,
   numbers,
   city,
-  gender
+  gender,
+  dateWithNoHour
 }

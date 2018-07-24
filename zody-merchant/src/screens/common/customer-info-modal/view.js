@@ -280,7 +280,7 @@ class CustomerInfoModalView extends React.Component {
                       </tr>
                       <tr>
                         <td>Ngày sinh</td>
-                        <td className={style.tabledata}>{format.date(dataProfile.user.birthday)}</td>
+                        <td className={style.tabledata}>{format.dateWithNoHour(dataProfile.user.birthday)}</td>
                       </tr>
                       <tr>
                         <td>Chi tiêu</td>
