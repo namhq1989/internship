@@ -98,11 +98,12 @@ class CustomerInfoModalView extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const { visible, customerId, phone } = newProps
+    console.log('new', newProps)
     const { customerInfo: { dataProfile, data } } = this.props
     if (!data.length) {
       this.loadActivities(customerId, phone)
     }
-    if (this.isEmpty(dataProfile)) {
+    if (this.isEmpty(dataProfile) || newProps.customerInfo.dataProfile.note !== dataProfile.note) {
       if (visible) {
         if (customerId) {
           this.loadProfile(customerId)

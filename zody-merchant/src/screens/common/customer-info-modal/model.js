@@ -47,12 +47,17 @@ export default {
         }
       })
     },
-    *saveNote({ payload: { noteContent, customerId } }, { call }) {
+    *saveNote({ payload: { noteContent, customerId } }, { call, put }) {
+      console.log('id', customerId)
       const data = yield call(saveNote, noteContent, customerId)
       const response = data.data
       if (!response || response.err) {
         return Notification(response.message, AppConst.notification.error)
       }
+      yield put({
+        type: 'loadProfile',
+        payload: customerId
+      })
       Notification(response.message, AppConst.notification.success)
     },
     *fetch({ payload }, { call, put }) {
