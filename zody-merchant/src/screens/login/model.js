@@ -7,6 +7,12 @@ export default {
   namespace: 'login',
   state: {},
   effects: {
+    init() {
+      const token = localStorage.getItem(AppConst.localStorage.authKey)
+      if (token) {
+        window.location.href = '/#/activities'
+      }
+    },
     *login({ payload }, { call, put }) {
       const data = yield call(login, payload)
       const response = data.data
@@ -19,6 +25,15 @@ export default {
       }
       localStorage.setItem(AppConst.localStorage.authKey, response.data.token)
       yield put(routerRedux.push('/activities'))
+    }
+  },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname }) => {
+        if (pathname === '/login') {
+          dispatch({ type: 'init' })
+        }
+      })
     }
   }
 }
