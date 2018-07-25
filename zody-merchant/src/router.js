@@ -35,6 +35,7 @@ function RouterConfig({ history, app }) {
             key={id}
           />
         ))}
+        <Route render={() => (<Redirect to="/activities" />)} />
       </Switch>
     </Router>
   )
