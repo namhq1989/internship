@@ -33,6 +33,12 @@ export default {
     }
   },
   effects: {
+    init() {
+      const token = localStorage.getItem(AppConst.localStorage.authKey)
+      if (!token) {
+        window.location.href = '/#/login'
+      }
+    },
     *recentActivities({ payload }, { call, put }) {
       const data = yield call(recentActivities, payload)
       if (!data || data.err) {
@@ -75,8 +81,14 @@ export default {
     },
     logout() {
       localStorage.removeItem(AppConst.localStorage.authKey)
-      // Redirect to login page
       window.location.href = '/#/login'
     },
   },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(() => {
+        dispatch({ type: 'init' })
+      })
+    }
+  }
 }
