@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, Switch } from 'dva/router'
+import { Router, Route, Switch, Redirect } from 'dva/router'
 import dynamic from 'dva/dynamic';
 import { ActivitiesView, ActivitiesModel } from './screens/activities'
 import { LoginView, LoginModel } from './screens/login'
@@ -23,6 +23,7 @@ function RouterConfig({ history, app }) {
   return (
     <Router history={history}>
       <Switch>
+        <Route exact path="/" render={() => (<Redirect to="/login" />)} />
         {routes.map(({ path, id, ...dynamics }) => (
           <Route
             path={path}

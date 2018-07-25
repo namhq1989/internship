@@ -164,7 +164,7 @@ class ActivitiesView extends React.Component {
     return (
       <Layout>
         <Sider
-          className="app-sidebar"
+          className={style.appSidebar}
           trigger={null}
           collapsible
           collapsed={collapsed}
@@ -176,7 +176,7 @@ class ActivitiesView extends React.Component {
             src={ImageConst.logoZody}
             alt=""
           />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu className={style.appMenu} theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
               <Icon type="solution" />
               <span>

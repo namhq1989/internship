@@ -70,7 +70,7 @@ class LoginView extends React.Component {
                   onPressEnter={this.submitLogin}
                 />
               </FormItem>
-              <FormItem>
+              <FormItem className={styles.buttonCenter}>
                 <Button
                   type="primary"
                   htmlType="button"
