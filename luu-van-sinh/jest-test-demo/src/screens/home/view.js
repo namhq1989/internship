@@ -22,12 +22,12 @@ export class HomeView extends React.Component {
     })
   }
 
+  changeLanguage = (lng) => {
+    this.props.i18n.changeLanguage(lng)
+  }
   render() {
     const { user, t, i18n } = this.props
     const currentLanguage = i18n.language
-    const changeLanguage = lng => {
-      i18n.changeLanguage(lng)
-    }
     if (!user) {
       return null
     }
@@ -35,8 +35,8 @@ export class HomeView extends React.Component {
       <div className="text-center">
         <header>
           <div className="top-left">
-            <Select defaultValue={currentLanguage} onChange={(value) => changeLanguage(value)}>
-              <Option value="vi">Tieng Viet</Option>
+            <Select defaultValue={currentLanguage} onChange={(value) => this.changeLanguage(value)}>
+              <Option value="vi">Tiếng Việt</Option>
               <Option value="en">English</Option>
             </Select>
           </div>
