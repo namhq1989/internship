@@ -7,6 +7,7 @@ i18n.use(LanguageDetector).init({
   resources: {
     en: {
       translations: {
+	'Account Kit': 'Login by phone',
         'language-o': 'en_US',
         'login-button': 'Login',
         'email-palceholder': 'Enter email',
@@ -42,6 +43,7 @@ i18n.use(LanguageDetector).init({
     },
     vi: {
       translations: {
+	'Account Kit': 'Đăng nhập bằng số  điện thoại',
         'language-o': 'vi_VN',
         'login-button': 'Đăng nhập',
         'email-palceholder': 'Nhập email',

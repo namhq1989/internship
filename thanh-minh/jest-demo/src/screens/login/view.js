@@ -94,9 +94,9 @@ export class LoginView extends React.Component {
                 onResponse={resp => console.log(resp)}
                 csrf="Demo-Account-Kit"
                 language={t('language-o')}
-                loginType="EMAIL"
+                loginType="PHONE"
               >
-                {p => <Button {...p}>Account Kit</Button>
+                {p => <Button {...p}>{t('Account Kit')}</Button>
               }
               </AccountKit>
             </div>
