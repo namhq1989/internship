@@ -106,7 +106,18 @@ class LoginView extends React.Component {
             </Form>
           </Col>
         </Row>
-        <RcCountryFlag changeLanguage={changeLanguage}/>
+        <Row type="flex" justify="center" className="options-language">
+          {
+            AppConst.language.map(item => (
+              <RcCountryFlag
+                changeLanguage={changeLanguage}
+                language={item.language}
+                code={item.code}
+                key={item.code}
+              />
+            ))
+          }
+        </Row>
       </div>
     )
   }

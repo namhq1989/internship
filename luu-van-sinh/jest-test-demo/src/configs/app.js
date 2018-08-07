@@ -18,5 +18,15 @@ export default {
     appId: "270845610370126",
     version: "v1.0",
     csrf: "ACCOUNTKIT"
-  }
+  },
+  language: [
+    {
+      language: 'vi',
+      code: 'VN'
+    },
+    {
+      language: 'en',
+      code: 'US'
+    }
+  ]
 }
