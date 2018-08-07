@@ -97,7 +97,7 @@ exports[`Login: renders correctly 1`] = `
           csrf="Demo-Account-Kit"
           disabled={false}
           language="en_US"
-          loginType="EMAIL"
+          loginType="PHONE"
           onResponse={[Function]}
           version="v1.0"
         />
