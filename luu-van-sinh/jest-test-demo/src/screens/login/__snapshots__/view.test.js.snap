@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render correctly 1`] = `
+<div
+  className="page"
+>
+  <Row
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Col
+      className="container"
+      md={8}
+      sm={18}
+      xs={18}
+    >
+      <div
+        className="logo"
+      >
+        <img
+          alt=""
+          src={null}
+        />
+      </div>
+      <Form
+        className="form-container"
+        hideRequiredMark={false}
+        layout="horizontal"
+        onSubmit={[Function]}
+        prefixCls="ant-form"
+      >
+        <FormItem
+          colon={true}
+          hasFeedback={false}
+          prefixCls="ant-form"
+        >
+          <Input
+            disabled={false}
+            name="email"
+            onChange={[Function]}
+            onPressEnter={[Function]}
+            prefix={
+              <Icon
+                type="user"
+              />
+            }
+            prefixCls="ant-input"
+            type="email"
+          />
+        </FormItem>
+        <FormItem
+          colon={true}
+          hasFeedback={false}
+          prefixCls="ant-form"
+        >
+          <Input
+            disabled={false}
+            name="password"
+            onChange={[Function]}
+            onPressEnter={[Function]}
+            prefix={
+              <Icon
+                type="lock"
+              />
+            }
+            prefixCls="ant-input"
+            type="password"
+          />
+        </FormItem>
+        <FormItem
+          className="btn-center"
+          colon={true}
+          hasFeedback={false}
+          prefixCls="ant-form"
+        >
+          <Button
+            className="btn-submit"
+            ghost={false}
+            htmlType="button"
+            loading={false}
+            onClick={[Function]}
+            prefixCls="ant-btn"
+            type="primary"
+          />
+          <Row
+            gutter={0}
+          >
+            <RcAccountKitLogin
+              t={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      "email",
+                    ],
+                    Array [
+                      "password",
+                    ],
+                    Array [
+                      "login",
+                    ],
+                    Array [
+                      "dontHaveAccount",
+                    ],
+                    Array [
+                      "signUp",
+                    ],
+                  ],
+                }
+              }
+            />
+          </Row>
+          <Row
+            gutter={16}
+          >
+            <Link
+              replace={false}
+              to="/register"
+            />
+          </Row>
+        </FormItem>
+      </Form>
+    </Col>
+  </Row>
+  <Row
+    className="options-language"
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <RcCountryFlag
+      changeLanguage={[Function]}
+      code="VN"
+      key="VN"
+      language="vi"
+    />
+    <RcCountryFlag
+      changeLanguage={[Function]}
+      code="US"
+      key="US"
+      language="en"
+    />
+  </Row>
+</div>
+`;

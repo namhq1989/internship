@@ -1,0 +1,23 @@
+export default {
+  translations: 'translations',
+  messages: 'messages',
+  email: 'email',
+  password: 'password',
+  login: 'login',
+  signUp: 'signUp',
+  loginByPhoneNumber: 'loginByPhoneNumber',
+  dontHaveAccount: 'dontHaveAccount',
+  name: 'name',
+  age: 'age',
+  haveAccount: 'haveAccount',
+  welcome: 'welcome',
+  logout: 'logout',
+  requireFormInput: 'requireFormInput',
+  incorrectEmailOrPassword: 'incorrectEmailOrPassword',
+  emailIsNotValid: 'emailIsNotValid',
+  passwordLengthMustAtLeast6Characters: 'PasswordLengthMustAtLeast6Characters',
+  singUpSuccessfully: 'signUpSuccessfully',
+  nameLengthIsNotvalid: 'nameLengthIsNotvalid',
+  ageIsNotValid: 'AgeIsNotValid',
+  registeredAccount: 'RegisteredAccount'
+}
