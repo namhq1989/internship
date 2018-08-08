@@ -1,27 +1,28 @@
 import React from 'react'
-import {  I18nextProvider } from "react-i18next"
+import { I18nextProvider } from 'react-i18next'
 import { Router, Route, Switch } from 'dva/router'
 import dynamic from 'dva/dynamic'
 import { LoginView, LoginModel } from './screens/login'
 import { RegisterView, RegisterModel } from './screens/register'
 import { HomeView, HomeModel } from './screens/home'
 import i18n from './i18n'
+import { URLConst } from './configs'
 
 const routes = [
   {
-    path: '/login',
+    path: URLConst.login,
     models: () => [LoginModel],
     component: () => LoginView,
     id: 1
   },
   {
-    path: '/register',
+    path: URLConst.register,
     models: () => [RegisterModel],
     component: () => RegisterView,
     id: 2
   },
   {
-    path: '/',
+    path: URLConst.home,
     models: () => [HomeModel],
     component: () => HomeView,
     id: 3
@@ -29,7 +30,6 @@ const routes = [
 ]
 
 function RouterConfig({ history, app }) {
-  
   return (
     <I18nextProvider i18n={i18n}>
       <Router history={history}>

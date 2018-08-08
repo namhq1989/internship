@@ -1,89 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1533548062508" clover="3.2.0">
-  <project timestamp="1533548062508" name="All files">
-    <metrics statements="36" coveredstatements="35" conditionals="26" coveredconditionals="26" methods="10" coveredmethods="9" elements="72" coveredelements="70" complexity="0" loc="36" ncloc="36" packages="6" files="10" classes="10">
+<coverage generated="1533714475456" clover="3.2.0">
+  <project timestamp="1533714475456" name="All files">
+    <metrics statements="83" coveredstatements="75" conditionals="32" coveredconditionals="31" methods="27" coveredmethods="21" elements="142" coveredelements="127" complexity="0" loc="83" ncloc="83" packages="7" files="20" classes="20">
       <package name="src">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <file name="i18n.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/i18n.js">
+        <file name="i18n.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/i18n.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-          <line num="4" count="2" type="stmt"/>
+          <line num="7" count="2" type="stmt"/>
         </file>
-        <file name="setupTest.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/setupTest.js">
+        <file name="setupTest.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/setupTest.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-          <line num="4" count="4" type="stmt"/>
+          <line num="4" count="6" type="stmt"/>
         </file>
       </package>
       <package name="src.components">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <file name="country-flag.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/components/country-flag.js">
+        <metrics statements="10" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="3"/>
+        <file name="account-kit-login.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/components/account-kit-login.js">
+          <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="10" count="0" type="stmt"/>
+          <line num="14" count="0" type="stmt"/>
+          <line num="19" count="0" type="stmt"/>
+        </file>
+        <file name="country-flag.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/components/country-flag.js">
           <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
           <line num="8" count="2" type="stmt"/>
           <line num="9" count="2" type="stmt"/>
           <line num="10" count="1" type="stmt"/>
         </file>
+        <file name="index.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/components/index.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="notification.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/components/notification.js">
+          <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+          <line num="4" count="2" type="stmt"/>
+          <line num="5" count="2" type="cond" truecount="1" falsecount="1"/>
+        </file>
       </package>
       <package name="src.configs">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <file name="app.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/configs/app.js">
+        <file name="app.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/app.js">
           <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         </file>
-        <file name="image.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/configs/image.js">
+        <file name="image.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/image.js">
           <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         </file>
-        <file name="index.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/configs/index.js">
+        <file name="index.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/index.js">
           <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         </file>
-        <file name="message.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/configs/message.js">
+        <file name="key.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/key.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="message.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/message.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="url.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/url.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+      </package>
+      <package name="src.configs.locale">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="en.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/locale/en.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="index.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/locale/index.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="vi.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/configs/locale/vi.js">
           <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         </file>
       </package>
       <package name="src.screens.home">
-        <metrics statements="13" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="5"/>
-        <file name="view.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/screens/home/view.js">
-          <metrics statements="13" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="5"/>
-          <line num="8" count="1" type="stmt"/>
-          <line num="12" count="5" type="stmt"/>
+        <metrics statements="15" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
+        <file name="view.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/screens/home/view.js">
+          <metrics statements="15" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="7" coveredmethods="6"/>
+          <line num="9" count="1" type="stmt"/>
           <line num="13" count="5" type="stmt"/>
-          <line num="19" count="1" type="stmt"/>
-          <line num="20" count="1" type="stmt"/>
-          <line num="26" count="2" type="stmt"/>
-          <line num="29" count="5" type="stmt"/>
-          <line num="30" count="5" type="stmt"/>
-          <line num="31" count="5" type="cond" truecount="2" falsecount="0"/>
-          <line num="32" count="1" type="stmt"/>
-          <line num="34" count="4" type="stmt"/>
-          <line num="38" count="2" type="stmt"/>
-          <line num="53" count="0" type="stmt"/>
+          <line num="14" count="5" type="stmt"/>
+          <line num="23" count="1" type="stmt"/>
+          <line num="24" count="1" type="stmt"/>
+          <line num="33" count="2" type="stmt"/>
+          <line num="34" count="2" type="stmt"/>
+          <line num="38" count="5" type="stmt"/>
+          <line num="39" count="5" type="stmt"/>
+          <line num="40" count="5" type="cond" truecount="2" falsecount="0"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="43" count="4" type="stmt"/>
+          <line num="47" count="2" type="stmt"/>
+          <line num="50" count="8" type="stmt"/>
+          <line num="65" count="0" type="stmt"/>
         </file>
       </package>
       <package name="src.screens.login">
-        <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
-        <file name="validator.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/screens/login/validator.js">
-          <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
-          <line num="3" count="1" type="stmt"/>
-          <line num="4" count="3" type="cond" truecount="4" falsecount="0"/>
-          <line num="5" count="1" type="stmt"/>
-          <line num="6" count="2" type="cond" truecount="2" falsecount="0"/>
-          <line num="7" count="1" type="stmt"/>
-          <line num="9" count="1" type="stmt"/>
+        <metrics statements="25" coveredstatements="24" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="6"/>
+        <file name="validator.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/screens/login/validator.js">
+          <metrics statements="8" coveredstatements="8" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+          <line num="8" count="2" type="stmt"/>
+          <line num="9" count="5" type="stmt"/>
+          <line num="10" count="5" type="cond" truecount="4" falsecount="0"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="12" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="15" count="2" type="stmt"/>
+          <line num="17" count="5" type="stmt"/>
+        </file>
+        <file name="view.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/screens/login/view.js">
+          <metrics statements="17" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="5"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="17" count="1" type="stmt"/>
+          <line num="18" count="1" type="stmt"/>
+          <line num="28" count="3" type="stmt"/>
+          <line num="29" count="3" type="stmt"/>
+          <line num="30" count="3" type="stmt"/>
+          <line num="37" count="2" type="stmt"/>
+          <line num="38" count="2" type="stmt"/>
+          <line num="39" count="2" type="stmt"/>
+          <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="49" count="1" type="stmt"/>
+          <line num="54" count="4" type="stmt"/>
+          <line num="55" count="4" type="stmt"/>
+          <line num="56" count="0" type="stmt"/>
+          <line num="58" count="4" type="stmt"/>
+          <line num="109" count="8" type="stmt"/>
         </file>
       </package>
       <package name="src.screens.register">
-        <metrics statements="12" coveredstatements="12" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
-        <file name="validator.js" path="/home/sinh/Documents/internship/luu-van-sinh/jest-test-demo/src/screens/register/validator.js">
-          <metrics statements="12" coveredstatements="12" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
-          <line num="3" count="1" type="stmt"/>
-          <line num="4" count="6" type="cond" truecount="6" falsecount="0"/>
-          <line num="5" count="1" type="stmt"/>
-          <line num="6" count="5" type="cond" truecount="4" falsecount="0"/>
-          <line num="7" count="1" type="stmt"/>
-          <line num="8" count="4" type="cond" truecount="4" falsecount="0"/>
-          <line num="9" count="1" type="stmt"/>
-          <line num="10" count="3" type="cond" truecount="2" falsecount="0"/>
-          <line num="11" count="1" type="stmt"/>
-          <line num="12" count="2" type="cond" truecount="2" falsecount="0"/>
-          <line num="13" count="1" type="stmt"/>
+        <metrics statements="31" coveredstatements="30" conditionals="20" coveredconditionals="20" methods="7" coveredmethods="6"/>
+        <file name="validator.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/screens/register/validator.js">
+          <metrics statements="14" coveredstatements="14" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
+          <line num="10" count="2" type="stmt"/>
+          <line num="11" count="8" type="stmt"/>
+          <line num="12" count="8" type="cond" truecount="6" falsecount="0"/>
+          <line num="13" count="2" type="stmt"/>
+          <line num="14" count="6" type="cond" truecount="4" falsecount="0"/>
           <line num="15" count="1" type="stmt"/>
+          <line num="16" count="5" type="cond" truecount="4" falsecount="0"/>
+          <line num="17" count="1" type="stmt"/>
+          <line num="18" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="19" count="1" type="stmt"/>
+          <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="21" count="1" type="stmt"/>
+          <line num="23" count="2" type="stmt"/>
+          <line num="25" count="8" type="stmt"/>
+        </file>
+        <file name="view.js" path="/home/sinh/Desktop/internship/luu-van-sinh/jest-test-demo/src/screens/register/view.js">
+          <metrics statements="17" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="5"/>
+          <line num="11" count="1" type="stmt"/>
+          <line num="15" count="1" type="stmt"/>
+          <line num="16" count="1" type="stmt"/>
+          <line num="28" count="5" type="stmt"/>
+          <line num="29" count="5" type="stmt"/>
+          <line num="30" count="5" type="stmt"/>
+          <line num="37" count="2" type="stmt"/>
+          <line num="38" count="2" type="stmt"/>
+          <line num="39" count="2" type="stmt"/>
+          <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="48" count="1" type="stmt"/>
+          <line num="53" count="6" type="stmt"/>
+          <line num="54" count="6" type="stmt"/>
+          <line num="55" count="0" type="stmt"/>
+          <line num="57" count="6" type="stmt"/>
+          <line num="125" count="12" type="stmt"/>
         </file>
       </package>
     </metrics>

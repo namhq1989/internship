@@ -1,16 +1,16 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Row, Col } from 'antd'
 import { connect } from 'dva'
-import { translate } from "react-i18next"
+import { translate } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ImageConst, AppConst } from '../../configs'
+import { ImageConst, AppConst, URLConst, key } from '../../configs'
 import { validate } from './validator'
 import { RcCountryFlag, RcNotification } from '../../components'
 import './style.less'
 
 const FormItem = Form.Item
 
-class RegisterView extends React.Component {
+export class RegisterView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,17 +21,23 @@ class RegisterView extends React.Component {
     }
   }
 
+  /**
+   * Handle change form input
+   */
   handleChange = (e) => {
     const newState = {}
     newState[e.target.name] = e.target.value
     this.setState(newState)
   }
 
+  /**
+   * Handle submit register
+   */
   submitRegister = () => {
     const { email, password, age, name } = this.state
     const { dispatch, t } = this.props
-    const { status, message } = validate({ name, age, email, password })
-    if (status) {
+    const { isValid, message } = validate(name, age, email, password)
+    if (isValid) {
       dispatch(
         {
           type: 'register/register',
@@ -39,13 +45,13 @@ class RegisterView extends React.Component {
         }
       )
     } else {
-      RcNotification(t(`message:${message}`), AppConst.notification.error)
+      RcNotification(t(`${key.messages}:${message}`), AppConst.notification.error)
     }
   }
 
   render() {
     const { t, i18n } = this.props
-    const changeLanguage = lng => {
+    const changeLanguage = (lng) => {
       i18n.changeLanguage(lng)
     }
     return (
@@ -60,7 +66,7 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="user" />}
                   type="text"
-                  placeholder={t('name')}
+                  placeholder={t(key.name)}
                   name="name"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -70,7 +76,7 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="solution" />}
                   type="number"
-                  placeholder={t('age')}
+                  placeholder={t(key.age)}
                   name="age"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -80,7 +86,7 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="mail" />}
                   type="email"
-                  placeholder={t('email')}
+                  placeholder={t(key.email)}
                   name="email"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -90,7 +96,7 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="lock" />}
                   type="password"
-                  placeholder={t('password')}
+                  placeholder={t(key.password)}
                   name="password"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -100,14 +106,14 @@ class RegisterView extends React.Component {
                 <Button
                   type="primary"
                   htmlType="button"
-                  className="zody-button"
+                  className="btn-submit"
                   onClick={this.submitRegister}
                 >
-                  {t('signUp')}
+                  {t(key.signUp)}
                 </Button>
                 <Row gutter={16}>
-                  {t('haveAccount')}
-                  <Link to="/login">{t('login')}</Link>
+                  {t(key.haveAccount)}
+                  <Link to={URLConst.login}>{t(key.login)}</Link>
                 </Row>
               </FormItem>
             </Form>
@@ -115,7 +121,7 @@ class RegisterView extends React.Component {
         </Row>
         <Row type="flex" justify="center" className="options-language">
           {
-            AppConst.language.map(item => (
+            AppConst.nation.map(item => (
               <RcCountryFlag
                 changeLanguage={changeLanguage}
                 language={item.language}
@@ -129,4 +135,4 @@ class RegisterView extends React.Component {
     )
   }
 }
-export default connect()(translate(['translations', 'message'])(RegisterView))
+export default connect()(translate([key.translations, key.messages])(RegisterView))

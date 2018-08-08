@@ -1,7 +1,13 @@
 import { routerRedux } from 'dva/router'
-import { AppConst, MessageConst } from '../../configs'
+import { AppConst, URLConst } from '../../configs'
 import { register } from './service'
-import { RcNotification } from '../../components';
+import { RcNotification } from '../../components'
+import i18n from '../../i18n'
+
+const REGISTERED_ACCOUNT = {
+  vi: 'Email đã được đăng ký',
+  en: 'Email have been registered!'
+}
 
 export default {
   namespace: 'register',
@@ -16,10 +22,10 @@ export default {
       const { email } = payload
       const accountList = JSON.parse(localStorage.getItem(AppConst.localStorage.accountList))
       if (accountList && accountList.find(item => item.email === email)) {
-        return RcNotification(MessageConst.Register.RegisteredAccount, AppConst.notification.error)
+        return RcNotification(REGISTERED_ACCOUNT[i18n.language], AppConst.notification.error)
       }
       yield call(register, { payload })
-      yield put(routerRedux.push('/login'))
+      yield put(routerRedux.push(URLConst.login))
     }
   }
 }
