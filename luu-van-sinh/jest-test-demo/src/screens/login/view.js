@@ -2,17 +2,17 @@ import React from 'react'
 import { connect } from 'dva';
 import { Form, Icon, Input, Button, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
-import { translate } from "react-i18next"
-import AccountKit from 'react-facebook-account-kit'
+import { translate } from 'react-i18next'
 
-import { ImageConst, AppConst } from '../../configs'
+import { ImageConst, AppConst, key, URLConst } from '../../configs'
 import { RcCountryFlag, RcNotification } from '../../components'
 import { validate } from './validator'
 import './style.less'
+import RcAccountKitLogin from '../../components/account-kit-login';
 
 const FormItem = Form.Item
 
-class LoginView extends React.Component {
+export class LoginView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,17 +21,23 @@ class LoginView extends React.Component {
     }
   }
 
+  /**
+   * Handle change form input
+   */
   handleChange = (e) => {
     const newState = {}
     newState[e.target.name] = e.target.value
     this.setState(newState)
   }
 
+  /**
+   * Handle submit form
+   */
   submitLogin = () => {
     const { email, password } = this.state
     const { dispatch, t } = this.props
-    const { status, message } = validate({ email, password })
-    if (status) {
+    const { isValid, message } = validate(email, password)
+    if (isValid) {
       dispatch({
         type: 'login/login',
         payload: {
@@ -40,13 +46,13 @@ class LoginView extends React.Component {
         }
       })
     } else {
-      RcNotification(t(`message:${message}`), AppConst.notification.error)
+      RcNotification(t(`${key.messages}:${message}`), AppConst.notification.error)
     }
   }
 
   render() {
     const { t, i18n } = this.props
-    const changeLanguage = lng => {
+    const changeLanguage = (lng) => {
       i18n.changeLanguage(lng)
     }
     return (
@@ -61,7 +67,7 @@ class LoginView extends React.Component {
                 <Input
                   prefix={<Icon type="user" />}
                   type="email"
-                  placeholder={t('email')}
+                  placeholder={t(key.email)}
                   name="email"
                   onChange={this.handleChange}
                   onPressEnter={this.submitLogin}
@@ -71,7 +77,7 @@ class LoginView extends React.Component {
                 <Input
                   prefix={<Icon type="lock" />}
                   type="password"
-                  placeholder={t('password')}
+                  placeholder={t(key.password)}
                   name="password"
                   onChange={this.handleChange}
                   onPressEnter={this.submitLogin}
@@ -81,26 +87,17 @@ class LoginView extends React.Component {
                 <Button
                   type="primary"
                   htmlType="button"
-                  className="zody-button"
+                  className="btn-submit"
                   onClick={this.submitLogin}
                 >
-                  {t('login')}
+                  {t(key.login)}
                 </Button>
                 <Row>
-                  <AccountKit
-                    appId={AppConst.accountKit.appId}
-                    version={AppConst.accountKit.version}
-                    onResponse={resp => console.log(resp)}
-                    csrf={AppConst.accountKit.csrf}
-                    language="vi_VN"
-                    loginType="PHONE"
-                  >
-                    {p => <Button {...p}>{t('loginByPhoneNumber')}</Button>}
-                  </AccountKit>
+                  <RcAccountKitLogin t={t} />
                 </Row>
                 <Row gutter={16}>
-                  {t('haveAccount')}
-                  <Link to="/register">{t('signUp')}</Link>
+                  {t(key.dontHaveAccount)}
+                  <Link to={URLConst.register}>{t(key.signUp)}</Link>
                 </Row>
               </FormItem>
             </Form>
@@ -108,7 +105,7 @@ class LoginView extends React.Component {
         </Row>
         <Row type="flex" justify="center" className="options-language">
           {
-            AppConst.language.map(item => (
+            AppConst.nation.map(item => (
               <RcCountryFlag
                 changeLanguage={changeLanguage}
                 language={item.language}
@@ -122,5 +119,4 @@ class LoginView extends React.Component {
     )
   }
 }
-export default connect()(translate(['translations', 'message'])(LoginView)
-)
+export default connect()(translate([key.translations, key.messages])(LoginView))

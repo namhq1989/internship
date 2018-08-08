@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router'
 import lodash from 'lodash'
 import { getUser, logout } from './service'
+import { URLConst } from '../../configs'
 
 export default {
   namespace: 'home',
@@ -11,7 +12,7 @@ export default {
     *init(payload, { call, put }) {
       const user = yield call(getUser)
       if (lodash.isEmpty(user)) {
-        return yield put(routerRedux.push('/login'))
+        return yield put(routerRedux.push(URLConst.login))
       }
       yield put({
         type: 'updateState',
@@ -28,7 +29,7 @@ export default {
           user: null
         }
       })
-      yield put(routerRedux.push('/login'))
+      yield put(routerRedux.push(URLConst.login))
     },
   },
   reducers: {

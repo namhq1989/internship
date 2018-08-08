@@ -15,16 +15,19 @@ export default {
     userInfo: 'userInfo'
   },
   accountKit: {
-    appId: "270845610370126",
-    version: "v1.0",
-    csrf: "ACCOUNTKIT"
+    appId: '270845610370126',
+    version: 'v1.0',
+    csrf: 'ACCOUNTKIT',
+    language: 'vi_VN',
+    loginType: 'PHONE'
   },
-  language: [
+  nation: [
     {
+      description: 'Tiếng Việt',
       language: 'vi',
       code: 'VN'
-    },
-    {
+    }, {
+      description: 'English',
       language: 'en',
       code: 'US'
     }

@@ -1,13 +1,20 @@
-import { AppConst } from "../../configs";
+import { AppConst, key } from '../../configs'
 
-const validate = ({ email, password }) => {
+/**
+ * Validate form login
+ * @param {String} email Email form input
+ * @param {String} password Password from input
+ */
+const validate = (email, password) => {
+  const response = { isValid: false, message: '' }
   if (!email || !password) {
-    return { status: false, message: 'RequireEmailAndPassword' }
+    response.message = key.requireFormInput
   } else if (!AppConst.regex.email.test(email)) {
-    return { status: false, message: 'EmailIsNotValid' }
+    response.message = key.emailIsNotValid
   } else {
-    return { status: true }
+    response.isValid = true
   }
+  return response
 }
 
 export {
