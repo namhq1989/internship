@@ -3,13 +3,14 @@ import { connect } from 'dva'
 import { Col, Row, Form, Icon, Input, Button } from 'antd'
 import { translate } from 'react-i18next'
 import { ImageConst, AppConst } from '../../configs'
-import { RcNotification } from '../../components'
+import { RcNotification, LanguageChange } from '../../components'
 import { registerValidator } from './validator'
+import { KeysConst } from '../../configs/locale'
 import './style.less'
 
 
 const FormItem = Form.Item
-class RegisterView extends React.Component {
+export class RegisterView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,18 +22,27 @@ class RegisterView extends React.Component {
     }
   }
 
+  /**
+   * @param {Object} event
+   * Handle change form input::
+   * Update state on input change (name, email, password, repassword, age)
+   */
   handleChange = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setState(newState)
   }
 
+  /**
+   * Submit Register
+   * (check validator) ? (dispatch to models): notification error
+   */
   submitRegister = () => {
     const { email, password, rePassword, name, age } = this.state
     const { t, dispatch } = this.props
     const validator = registerValidator(name, email, password, rePassword, age)
-    if (validator.status) {
+    if (validator.isValid) {
       const account = { name, email, password, rePassword, age }
       dispatch({
         type: 'register/register',
@@ -43,6 +53,9 @@ class RegisterView extends React.Component {
     }
   }
 
+  /**
+   * Render Register View
+   */
   render() {
     const { t, i18n } = this.props
     const changeLanguage = (lng) => {
@@ -54,16 +67,17 @@ class RegisterView extends React.Component {
           <Col xs={18} sm={18} md={8} className="container">
             <div className="logo">
               <img src={ImageConst.imageLogin} alt="logo" />
-              <h2 className="title-register">{t('Sign-up')}</h2>
+              <h2 className="title-register">{t(KeysConst.signUp)}</h2>
             </div>
             <Form className="form-register">
               <FormItem className="margin-input">
                 <Input
                   prefix={<Icon type="user" />}
                   type="text"
-                  placeholder={t('Username-placeholder')}
+                  placeholder={t(KeysConst.usernamePlaceholder)}
                   name="name"
                   className="input"
+                  id="username"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
                 />
@@ -72,8 +86,9 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="mail" />}
                   type="email"
-                  placeholder={t('email-palceholder')}
+                  placeholder={t(KeysConst.emailPalceholder)}
                   name="email"
+                  id="email"
                   className="input"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -83,8 +98,9 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="lock" />}
                   type="password"
-                  placeholder={t('password-placeholder')}
+                  placeholder={t(KeysConst.passwordPlaceholder)}
                   name="password"
+                  id="password"
                   className="input"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -94,8 +110,9 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="lock" />}
                   type="password"
-                  placeholder={t('repassword-placeholder')}
+                  placeholder={t(KeysConst.repasswordPlaceholder)}
                   name="rePassword"
+                  id="repassword"
                   className="input"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -105,8 +122,9 @@ class RegisterView extends React.Component {
                 <Input
                   prefix={<Icon type="idcard" />}
                   type="text"
-                  placeholder={t('age-placeholder')}
+                  placeholder={t(KeysConst.agePlaceholder)}
                   name="age"
+                  id="age"
                   className="input"
                   onChange={this.handleChange}
                   onPressEnter={this.submitRegister}
@@ -119,25 +137,20 @@ class RegisterView extends React.Component {
                   className="button-register"
                   onClick={this.submitRegister}
                 >
-                  {t('Sign-up')}
+                  {t(KeysConst.signUp)}
                 </Button>
               </FormItem>
             </Form>
             <div className="div-login">
-              <span>{t('Do have an account')}&nbsp;&nbsp;</span>
+              <span>{t(KeysConst.doHaveAnAccount)}&nbsp;&nbsp;</span>
               <a href="/#/login" title="login">
-                {t('login-button')}
+                {t(KeysConst.loginButton)}
               </a>
             </div>
-            <div className="country-flag">
-              <span>{t('language- label')}:&nbsp;&nbsp;</span>
-              <Button onClick={() => changeLanguage('vi')}>
-                <img src={ImageConst.imageIconVietNamese} alt="vn" />
-              </Button>  &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={() => changeLanguage('en')} className="en-flae">
-                <img src={ImageConst.imageIconEngland} alt="en" />
-              </Button>
-            </div>
+            <LanguageChange
+              t={t}
+              changeLanguage={changeLanguage}
+            />
           </Col>
         </Row>
       </div>

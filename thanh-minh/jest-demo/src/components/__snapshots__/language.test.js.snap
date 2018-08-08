@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component LanguageChange render correctly 1`] = `
+<div
+  className="country-flag"
+>
+  <span>
+    :  
+  </span>
+  <Button
+    className="margin-right"
+    ghost={false}
+    key="1"
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+  >
+    <ReactCountryFlag
+      code="VN"
+      svg={true}
+    />
+  </Button>
+  <Button
+    className="margin-right"
+    ghost={false}
+    key="2"
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+  >
+    <ReactCountryFlag
+      code="US"
+      svg={true}
+    />
+  </Button>
+</div>
+`;

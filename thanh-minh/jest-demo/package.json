@@ -35,6 +35,7 @@
     "i18next": "^11.5.0",
     "i18next-browser-languagedetector": "^2.2.2",
     "react": "^16.2.0",
+    "react-country-flag": "^0.2.0",
     "react-dom": "^16.2.0",
     "react-facebook-account-kit": "^0.1.1",
     "react-i18next": "^7.10.1"
@@ -66,9 +67,12 @@
     "husky": "^0.12.0",
     "jest": "^23.4.2",
     "jest-enzyme": "^6.0.2",
+    "jsdom": "11.12.0",
+    "jsdom-global": "3.0.2",
     "react-test-renderer": "^16.4.1",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.0.0",
+    "sinon": "^6.1.4",
     "style-loader": "^0.21.0"
   }
 }

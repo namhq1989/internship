@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router'
 import { RcNotification } from '../../components'
-import { MessageConst, AppConst, i18n } from '../../configs'
+import { AppConst, i18n } from '../../configs'
+import { vi, en } from '../../configs/locale'
 
 export default {
   namespace: 'register',
@@ -8,7 +9,6 @@ export default {
   effects: {
     *register({ payload }, { put }) {
       const languages = i18n.language
-
       if (!localStorage.getItem(AppConst.localStorage.accounts)) {
         const accounts = []
         accounts.push(payload)
@@ -17,14 +17,22 @@ export default {
         const accounts = JSON.parse(localStorage.getItem(AppConst.localStorage.accounts))
         const isAccount = accounts.find(account => account.email === payload.email)
         if (isAccount) {
-          RcNotification(MessageConst[languages].Register.EmailExists, AppConst.notification.error)
+          if (languages === 'vi') {
+            RcNotification(vi.translations.emailExists, AppConst.notification.error)
+          } else {
+            RcNotification(en.translations.emailExists, AppConst.notification.error)
+          }
           return
         } else {
           accounts.push(payload)
           localStorage.setItem(AppConst.localStorage.accounts, JSON.stringify(accounts))
         }
       }
-      RcNotification(MessageConst[languages].Register.SuccessRegister, AppConst.notification.success)
+      if (languages === 'vi') {
+        RcNotification(vi.translations.successRegister, AppConst.notification.success)
+      } else {
+        RcNotification(en.translations.successRegister, AppConst.notification.success)
+      }
       yield put(routerRedux.push('/login'))
     }
   }

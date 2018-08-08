@@ -2,15 +2,19 @@ import React from 'react'
 import { connect } from 'dva'
 import { Row, Col, Button } from 'antd'
 import { translate } from 'react-i18next'
-import { ImageConst } from '../../configs'
+import { LanguageChange } from '../../components'
+import { KeysConst } from '../../configs/locale'
 import './style.less'
 
-class HomePageView extends React.Component {
+export class HomePageView extends React.Component {
   componentDidMount() {
     this.init()
     this.saveUserInfo()
   }
 
+  /**
+   * Call to model for Check whether the user account is logged on
+   */
   init = () => {
     const { dispatch } = this.props
     dispatch({
@@ -18,6 +22,9 @@ class HomePageView extends React.Component {
     })
   }
 
+  /**
+   * Call to model for save user account into store
+   */
   saveUserInfo = () => {
     const { dispatch } = this.props
     dispatch({
@@ -25,6 +32,9 @@ class HomePageView extends React.Component {
     })
   }
 
+  /**
+   * Call to model for log out
+   */
   handleLogOut = () => {
     const { dispatch } = this.props
     dispatch({
@@ -32,9 +42,11 @@ class HomePageView extends React.Component {
     })
   }
 
+  /**
+   * Render register view
+   */
   render() {
-    const { home: { userInfo } } = this.props
-    const { t, i18n } = this.props
+    const { t, i18n, userInfo } = this.props
     const changeLanguage = (lng) => {
       i18n.changeLanguage(lng)
     }
@@ -42,27 +54,30 @@ class HomePageView extends React.Component {
       <div>
         <Row type="flex" justify="center">
           <Col span={8} className="wrapper">
-            <h1>{t('welcome-page')} <strong className="user-info">{userInfo.name}</strong>{t('come-page')}</h1>
+            <h1>{t(KeysConst.welcomePage)}
+              <strong className="user-info">
+                {userInfo.name}
+              </strong>
+              {t(KeysConst.comePage)}
+            </h1>
             <Button
               type="primary"
               onClick={this.handleLogOut}
               className="logout-button"
-            >{t('log-out')}
+            >{t(KeysConst.logOut)}
             </Button><br /><br />
-            <div className="country-flag">
-              <span>{t('language- label')}:&nbsp;&nbsp;</span>
-              <Button onClick={() => changeLanguage('vi')}>
-                <img src={ImageConst.imageIconVietNamese} alt="vn" />
-              </Button>  &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={() => changeLanguage('en')} className="en-flae">
-                <img src={ImageConst.imageIconEngland} alt="en" />
-              </Button>
-            </div>
+            <LanguageChange
+              t={t}
+              changeLanguage={changeLanguage}
+            />
           </Col>
         </Row>
       </div>
     )
   }
 }
-
-export default connect(({ home }) => ({ home }))(translate('translations')(HomePageView))
+export default connect(
+  ({ home }) => (
+    { userInfo: home.userInfo }
+  )
+)(translate('translations')(HomePageView))

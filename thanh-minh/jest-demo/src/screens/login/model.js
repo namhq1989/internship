@@ -1,7 +1,9 @@
 import { routerRedux } from 'dva/router'
 import { RcNotification } from '../../components'
-import { MessageConst, AppConst } from '../../configs'
+import { AppConst } from '../../configs'
+import { vi, en } from '../../configs/locale'
 import i18n from '../../configs/i18n'
+
 
 export default {
   namespace: 'login',
@@ -20,16 +22,20 @@ export default {
         const isExistsAccount = accounts.find(acc => (
           acc.email === payload.email && acc.password === payload.password))
         if (!isExistsAccount) {
-          console.log(MessageConst[languages]);
-          RcNotification(MessageConst[languages].Login.ErrorAccount, AppConst.notification.error)
+          if (languages === 'vi') {
+            RcNotification(vi.translations.errorAccount, AppConst.notification.error)
+          } else {
+            RcNotification(en.translations.errorAccount, AppConst.notification.error)
+          }
           return
         } else {
           localStorage.setItem(AppConst.localStorage.accountLogin, JSON.stringify(isExistsAccount))
         }
-        RcNotification(MessageConst[languages].Login.LoginSuccess, AppConst.notification.success)
         yield put(routerRedux.push('/home'))
+      } else if (languages === 'vi') {
+        RcNotification(vi.translations.notExistAccounts, AppConst.notification.error)
       } else {
-        RcNotification(MessageConst[languages].Login.NotExistAccounts, AppConst.notification.error)
+        RcNotification(en.translations.notExistAccounts, AppConst.notification.error)
       }
     }
   },

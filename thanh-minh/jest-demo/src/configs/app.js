@@ -33,4 +33,19 @@ export default {
     accounts: 'accounts',
     accountLogin: 'accountLogin'
   },
+
+  // language
+  language: [
+    {
+      key: 1,
+      language: 'vi',
+      code: 'VN'
+    },
+    {
+      key: 2,
+      language: 'en',
+      code: 'US'
+    }
+  ]
+
 }

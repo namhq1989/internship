@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'dva'
 import { Col, Row, Form, Icon, Button, Input } from 'antd'
 import { translate } from 'react-i18next'
-import AccountKit from 'react-facebook-account-kit'
 import { ImageConst, AppConst } from '../../configs'
-import { RcNotification } from '../../components'
+import { RcNotification, AccountKitView, LanguageChange } from '../../components'
 import { loginValidator } from './validator'
+import { KeysConst } from '../../configs/locale'
 import './style.less'
 
 const FormItem = Form.Item
@@ -18,17 +18,29 @@ export class LoginView extends React.Component {
     }
   }
 
+  /**
+   *
+   * @param {Object} event
+   * Handle change form input::
+   * Update state on input change ( Email, Password )
+   *
+  */
   handleChange = (event) => {
     const newState = {}
     newState[event.target.name] = event.target.value
     this.setState(newState)
   }
 
+  /**
+   * Submit form login,
+   * (check validator) ? (dispatch to models): notification error
+   *
+  */
   submitLogin = () => {
     const { t, dispatch } = this.props
     const { email, password } = this.state
     const validator = loginValidator(email, password)
-    if (validator.status) {
+    if (validator.isValid) {
       const user = { email, password }
       dispatch({
         type: 'login/login',
@@ -39,6 +51,9 @@ export class LoginView extends React.Component {
     }
   }
 
+  /**
+   * Render Login View
+   */
   render() {
     const { t, i18n } = this.props
     const changeLanguage = (lng) => {
@@ -57,7 +72,7 @@ export class LoginView extends React.Component {
                   prefix={<Icon type="user" />}
                   id="email"
                   type="email"
-                  placeholder={t('email-palceholder')}
+                  placeholder={t(KeysConst.emailPalceholder)}
                   name="email"
                   className="input"
                   onChange={this.handleChange}
@@ -69,7 +84,7 @@ export class LoginView extends React.Component {
                   prefix={<Icon type="lock" />}
                   id="password"
                   type="password"
-                  placeholder={t('password-placeholder')}
+                  placeholder={t(KeysConst.passwordPlaceholder)}
                   name="password"
                   className="input"
                   onChange={this.handleChange}
@@ -83,38 +98,21 @@ export class LoginView extends React.Component {
                   className="button-login"
                   onClick={this.submitLogin}
                 >
-                  {t('login-button')}
+                  {t(KeysConst.loginButton)}
                 </Button>
               </FormItem>
             </Form>
-            <div className="account-kit">
-              <AccountKit
-                appId="195477857985857"
-                version="v1.0"
-                onResponse={resp => console.log(resp)}
-                csrf="Demo-Account-Kit"
-                language={t('language-o')}
-                loginType="PHONE"
-              >
-                {p => <Button {...p}>{t('Account Kit')}</Button>
-              }
-              </AccountKit>
-            </div>
+            <AccountKitView />
             <div className="div-login">
-              <span>{t('Do not have an account')}&nbsp;&nbsp;</span>
+              <span>{t(KeysConst.doNotHaveAnAccount)}&nbsp;&nbsp;</span>
               <a href="/#/register" title="register">
-                {t('Sign-up')}
+                {t(KeysConst.signUp)}
               </a>
             </div>
-            <div className="country-flag">
-              <span>{t('language- label')}:&nbsp;&nbsp;</span>
-              <Button id="vi-button" onClick={() => changeLanguage('vi')}>
-                <img src={ImageConst.imageIconVietNamese} alt="vn" />
-              </Button>  &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button id="en-button" onClick={() => changeLanguage('en')} className="en-flae">
-                <img src={ImageConst.imageIconEngland} alt="en" />
-              </Button>
-            </div>
+            <LanguageChange
+              t={t}
+              changeLanguage={changeLanguage}
+            />
           </Col>
         </Row>
       </div>

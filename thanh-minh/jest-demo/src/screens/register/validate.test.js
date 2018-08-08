@@ -1,33 +1,4 @@
-import { loginValidator } from '../src/screens/login/validator'
-import { registerValidator } from '../src/screens/register/validator'
-
-
-describe('Test login', () => {
-  it('Email and password success!  email: milano123@gmail.com, password: 123456', () => {
-    const user = { email: 'milano123@gmail.com', password: '123456' }
-    expect(loginValidator(user.email, user.password).status).toBe(true)
-  })
-  it('Please fill out the login form!', () => {
-    const user = { email: '', password: '' }
-    expect(loginValidator(user.email, user.password).status).toBe(false)
-  })
-  it('The input is not valid E-mail!', () => {
-    const user = { email: 'milano', password: '123456' }
-    expect(loginValidator(user.email, user.password).status).toBe(false)
-  })
-  it('Password is less than 6!', () => {
-    const user = { email: 'milano123@gmail.com', password: '1233' }
-    expect(loginValidator(user.email, user.password).status).toBe(false)
-  })
-  it('Password khong co', () => {
-    const user = { email: 'milano123@gmail.com', password: '' }
-    expect(loginValidator(user.email, user.password).status).toBe(false)
-  })
-  it('Email khong co', () => {
-    const user = { email: '', password: '123456' }
-    expect(loginValidator(user.email, user.password).status).toBe(false)
-  })
-})
+import { registerValidator } from './validator'
 
 describe('Test Register', () => {
   it('Please fill out the login form!', () => {
@@ -39,7 +10,7 @@ describe('Test Register', () => {
       age: ''
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('UserName must be between 2 -128 characters', () => {
@@ -51,7 +22,7 @@ describe('Test Register', () => {
       age: '22'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('The input is not valid E-mail!', () => {
@@ -63,7 +34,7 @@ describe('Test Register', () => {
       age: '22'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Passwords must be at least 6 characters', () => {
@@ -75,7 +46,7 @@ describe('Test Register', () => {
       age: '22'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Confirm password mismatch', () => {
@@ -87,7 +58,7 @@ describe('Test Register', () => {
       age: '22'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Please enter age as an integer', () => {
@@ -99,7 +70,7 @@ describe('Test Register', () => {
       age: 'sdsad223'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Age must be in between 1 to 100', () => {
@@ -111,7 +82,7 @@ describe('Test Register', () => {
       age: '222'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Age must be in between 1 to 100', () => {
@@ -123,7 +94,7 @@ describe('Test Register', () => {
       age: '-112'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(false)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(false)
   })
 
   it('Sign Up Success', () => {
@@ -135,6 +106,6 @@ describe('Test Register', () => {
       age: '23'
     }
     expect(registerValidator(tmpAccount.name, tmpAccount.email, tmpAccount.password,
-      tmpAccount.rePassword, tmpAccount.age).status).toBe(true)
+      tmpAccount.rePassword, tmpAccount.age).isValid).toBe(true)
   })
 })
