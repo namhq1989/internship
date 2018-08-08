@@ -1,8 +1,13 @@
 import { routerRedux } from 'dva/router'
 import i18n from '../../i18n'
-import { AppConst, MessageConst } from '../../configs'
+import { AppConst, URLConst } from '../../configs'
 import { RcNotification } from '../../components'
 import { storeUserInfo } from './service'
+
+const INCORRECT_EMAIL_OR_PASSWORD = {
+  vi: 'Email hoặc mật khẩu không đúng',
+  en: 'Email or password is incorrect',
+}
 
 export default {
   namespace: 'login',
@@ -20,12 +25,10 @@ export default {
       }
       const userInfo = userList.find(item => (item.email === email && item.password === password))
       if (!userInfo) {
-        const language = i18n.language
-        return RcNotification(MessageConst[language].Login.InCorrectEmailOrPassWord,
-          AppConst.notification.error)
+        return RcNotification(INCORRECT_EMAIL_OR_PASSWORD[i18n.language], AppConst.notification.error)
       }
       yield call(storeUserInfo, { payload: userInfo })
-      yield put(routerRedux.push('/'))
+      yield put(routerRedux.push(URLConst.home))
     }
   }
 }

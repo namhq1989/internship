@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">92.31% </span>
+        <span class="strong">93.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/13</span>
+        <span class='fraction'>14/15</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83.33% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/6</span>
+        <span class='fraction'>6/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">92.31% </span>
+        <span class="strong">93.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/13</span>
+        <span class='fraction'>14/15</span>
       </div>
     </div>
     <p class="quiet">
@@ -99,7 +99,20 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,14 +130,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -137,6 +158,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,9 +181,10 @@ import { connect } from 'dva'
 import { Button, Select } from 'antd'
 import { translate } from 'react-i18next'
 &nbsp;
+import { key, AppConst } from '../../configs'
 import './style.less'
 &nbsp;
-const Option = Select.Option
+const { Option } = Select
 &nbsp;
 export class HomeView extends React.Component {
   componentDidMount() {
@@ -169,6 +194,9 @@ export class HomeView extends React.Component {
     })
   }
 &nbsp;
+  /**
+   * Handle logout
+   */
   logout = () =&gt; {
     const { dispatch } = this.props
     dispatch({
@@ -176,9 +204,14 @@ export class HomeView extends React.Component {
     })
   }
 &nbsp;
+  /**
+   * Handle change language
+   */
   changeLanguage = (lng) =&gt; {
-    this.props.i18n.changeLanguage(lng)
+    const { i18n } = this.props
+    i18n.changeLanguage(lng)
   }
+&nbsp;
   render() {
     const { user, t, i18n } = this.props
     const currentLanguage = i18n.language
@@ -189,29 +222,32 @@ export class HomeView extends React.Component {
       &lt;div className="text-center"&gt;
         &lt;header&gt;
           &lt;div className="top-left"&gt;
-            &lt;Select defaultValue={currentLanguage} onChange={(value) =&gt; this.changeLanguage(value)}&gt;
-              &lt;Option value="vi"&gt;Tiếng Việt&lt;/Option&gt;
-              &lt;Option value="en"&gt;English&lt;/Option&gt;
+            &lt;Select defaultValue={currentLanguage} onChange={value =&gt; this.changeLanguage(value)}&gt;
+              {
+                AppConst.nation.map(item =&gt; (
+                  &lt;Option key={item.code} value={item.language}&gt;{item.description}&lt;/Option&gt;
+                ))
+              }
             &lt;/Select&gt;
           &lt;/div&gt;
         &lt;/header&gt;
         &lt;h2 className="title"&gt;
-          {t('welcome')} {user.name}
+          {t(key.welcome)} {user.name}
         &lt;/h2&gt;
-        &lt;Button type="danger" onClick={this.logout}&gt;{t('logout')}&lt;/Button&gt;
+        &lt;Button type="danger" onClick={this.logout}&gt;{t(key.logout)}&lt;/Button&gt;
       &lt;/div&gt;
     )
   }
 }
 &nbsp;
-export default connect(<span class="fstat-no" title="function not covered" >({</span> home }) =&gt; (<span class="cstat-no" title="statement not covered" >{ user: home.user })</span>)(translate('translations')(HomeView))
+export default connect(<span class="fstat-no" title="function not covered" >({</span> home }) =&gt; (<span class="cstat-no" title="statement not covered" >{ user: home.user })</span>)(translate(key.translations)(HomeView))
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Aug 06 2018 16:34:22 GMT+0700 (Indochina Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Aug 08 2018 14:47:55 GMT+0700 (Indochina Time)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
